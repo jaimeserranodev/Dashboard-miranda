@@ -5,9 +5,13 @@
 
 .home{
     display: flex;
+    width: 100%;
     background-color: #F8F8F8;
 }
 
+.homeContainer{
+    width: 100%;
+}
 .container{
     display: block;
 }
