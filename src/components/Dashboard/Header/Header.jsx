@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Header.css";
 import { HeaderData } from './HeaderData';
-import logo from '../../../imagenes/Logo.png';
+
 import {SlEnvolopeLetter} from 'react-icons/sl';
 import {AiOutlineBell} from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
@@ -11,9 +11,7 @@ function Header() {
         <div className='Header'>
             <div className="wrapper">
                 <ul className='HeaderList'>
-                    <li className='logo'>
-                        <img id='logo' src={logo} alt="Logo" />
-                    </li>
+                    
                     {HeaderData.map((val, key) => {
                     return (
                     <li 

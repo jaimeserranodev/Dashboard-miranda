@@ -13,7 +13,7 @@ export const SidebarData = [
 {
     title:"Bookings",
     icon: <LuCalendarCheck2 />,
-    link: "/Bookings",
+    link: "/Booking",
 },
 {
     title:"Rooms",
