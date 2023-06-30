@@ -15,13 +15,13 @@ const Customers = () => {
                     </div>
                     
                     <div className="botton">
-                        <img id="review-foto" src={perfil}/>
+                        <img id="review-foto" src={perfil} alt=''/>
                         <div className="botton-text">
                             <span>Kusnaidi Anderson</span>
                             <span className='subtitle'>4 min ago</span>
                         </div>
-                        <span><AiOutlineCheckCircle /></span>
-                        <span><TiDeleteOutline /></span>
+                        <span className='checkOk'><AiOutlineCheckCircle /></span>
+                        <span className='checkX'><TiDeleteOutline /></span>
                     </div>
                 </div>
                 <div className="wrapper-top-botton">
@@ -30,13 +30,13 @@ const Customers = () => {
                     </div>
                     
                     <div className="botton">
-                        <img id="review-foto" src={perfil}/>
+                        <img id="review-foto" src={perfil} alt=''/>
                         <div className="botton-text">
                             <span>Kusnaidi Anderson</span>
                             <span className='subtitle'>4 min ago</span>
                         </div>
-                        <span><AiOutlineCheckCircle /></span>
-                        <span><TiDeleteOutline /></span>
+                        <span className='checkOk'><AiOutlineCheckCircle /></span>
+                        <span className='checkX'><TiDeleteOutline /></span>
                     </div>
                 </div>
                 <div className="wrapper-top-botton">
@@ -45,13 +45,13 @@ const Customers = () => {
                     </div>
                     
                     <div className="botton">
-                        <img id="review-foto" src={perfil}/>
+                        <img id="review-foto" src={perfil }alt=''/>
                         <div className="botton-text">
                             <span>Kusnaidi Anderson</span>
                             <span className='subtitle'>4 min ago</span>
                         </div>
-                        <span><AiOutlineCheckCircle /></span>
-                        <span><TiDeleteOutline /></span>
+                        <span className='checkOk'><AiOutlineCheckCircle /></span>
+                        <span className='checkX'><TiDeleteOutline /></span>
                     </div>
                 </div>
             </div>

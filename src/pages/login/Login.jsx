@@ -1,14 +1,11 @@
 import React from 'react'
-import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
-import Header from '../../components/Dashboard/Header/Header'
+import Formulario from '../../components/formulario/formulario'
+import "./login.css"
+
 function Login() {
     return (
-        <div className='home'>
-        <Sidebar />
-        <div className="homeContainer">
-            <Header />
-            
-        </div>
+        <div className="login">
+            <Formulario />
         </div>
     )
 }

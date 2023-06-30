@@ -1,0 +1,75 @@
+.users {
+  width: 100%;
+  display: flex;
+}
+.users .usersContainer {
+  flex: 6;
+}
+.users .usersContainer .usersTop,
+.users .usersContainer .usersBotton {
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  padding: 10px;
+  margin: 20px;
+  display: flex;
+}
+.users .usersContainer .usersTop h1,
+.users .usersContainer .usersBotton h1 {
+  color: lightgray;
+  font-size: 20px;
+}
+.users .usersContainer .usersTop .usersLeft,
+.users .usersContainer .usersBotton .usersLeft {
+  flex: 1;
+  text-align: center;
+}
+.users .usersContainer .usersTop .usersLeft img,
+.users .usersContainer .usersBotton .usersLeft img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.users .usersContainer .usersTop .usersRight,
+.users .usersContainer .usersBotton .usersRight {
+  flex: 2;
+}
+.users .usersContainer .usersTop .usersRight form,
+.users .usersContainer .usersBotton .usersRight form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+}
+.users .usersContainer .usersTop .usersRight form .formInput,
+.users .usersContainer .usersBotton .usersRight form .formInput {
+  width: 40%;
+}
+.users .usersContainer .usersTop .usersRight form .formInput label,
+.users .usersContainer .usersBotton .usersRight form .formInput label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.users .usersContainer .usersTop .usersRight form .formInput label .icon,
+.users .usersContainer .usersBotton .usersRight form .formInput label .icon {
+  cursor: pointer;
+}
+.users .usersContainer .usersTop .usersRight form .formInput input,
+.users .usersContainer .usersBotton .usersRight form .formInput input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.users .usersContainer .usersTop .usersRight form button,
+.users .usersContainer .usersBotton .usersRight form button {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  background-color: teal;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}/*# sourceMappingURL=users.css.map */

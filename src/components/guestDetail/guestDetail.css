@@ -1,0 +1,98 @@
+.guestDetail {
+  width: 80%;
+  background: white;
+  display: flex;
+  flex-direction: row;
+  margin-left: 10%;
+  margin-top: 3%;
+  height: 80%;
+  border-radius: 5%;
+}
+.guestDetail .left {
+  flex: 1;
+  width: 100%;
+}
+.guestDetail .left .top {
+  width: 80%;
+  height: 33%;
+  margin-left: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 3px solid black;
+}
+.guestDetail .left .top .div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+.guestDetail .left .top .div img {
+  width: 156px;
+  height: 156px;
+  border-radius: 20%;
+}
+.guestDetail .left .top .div div {
+  flex-direction: column;
+}
+.guestDetail .left .top .div div .name {
+  text-align: left;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 0px;
+  color: #212121;
+  opacity: 1;
+}
+.guestDetail .left .top .div div .id {
+  text-align: left;
+  font: normal normal normal 14px/21px "Poppins";
+  letter-spacing: 0px;
+  color: #799283;
+  opacity: 1;
+}
+.guestDetail .left .top .check {
+  display: flex;
+  flex-direction: row;
+  padding-top: 50px;
+  justify-content: space-around;
+  width: 80%;
+}
+.guestDetail .left .top .check .checkLeft {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 40px;
+}
+.guestDetail .left .top .check .checkLeft .date {
+  font-family: "poppins";
+  font-size: 14px;
+  font-weight: 600;
+}
+.guestDetail .left .top .check .checkRight {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.guestDetail .left .top .check .checkRight .date {
+  font-family: "poppins";
+  font-size: 16px;
+  font-weight: 600;
+}
+.guestDetail .left .center {
+  height: 33%;
+  display: block;
+  border-bottom: 3px solid black;
+}
+.guestDetail .left .bottom {
+  height: 33%;
+  display: block;
+  border-bottom: 3px solid black;
+}
+.guestDetail .right {
+  flex: 1;
+  background-color: gray;
+}/*# sourceMappingURL=guestDetail.css.map */
