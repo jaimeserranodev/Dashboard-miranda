@@ -11,7 +11,7 @@ const Formulario = () => {
     const getEmail=localStorage.getItem("emailData")
     const getPassword=localStorage.getItem("passwordData")
     const handleSubmit=()=>{
-        if(email.current.value=="admin" && password.current.value=="admin"){
+        if(email.current.value==="admin" && password.current.value==="admin"){
             localStorage.setItem("emailData","admin")
             localStorage.setItem("passwordData","admin")
         }

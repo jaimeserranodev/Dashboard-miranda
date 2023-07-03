@@ -1,7 +1,5 @@
 import React from 'react';
 import "./Header.css";
-import { HeaderData } from './HeaderData';
-
 import { SlEnvolopeLetter } from 'react-icons/sl';
 import { AiOutlineBell } from 'react-icons/ai';
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -44,24 +42,23 @@ const handleClick = () => {
 
 const icon = showSidebar ? (
     <AiOutlineArrowLeft className='icon' />
-  ) : (
+    ) : (
     <AiOutlineArrowRight className='icon' />
-  );
+    );
 
 return (
     <div className='Header'>
         <div className="wrapper">
             <ul className='HeaderList'>
-            {HeaderData.map((val, key) => (
-                <li
-                key={key}
-                className='titulos'
-                
-                >
-                <div id='icon' onClick={toggleSidebar}>{icon}</div>
-                <div id='title'>{getTitle()}</div>
+                <li className='titulos'>
+                <div id='icon' onClick={toggleSidebar}>
+                    {icon}
+                </div>
+                <div id='title'>
+                    {getTitle()}
+                </div>
                 </li>
-            ))}
+            
             </ul>
             <div className='items'>
                 <div className='item'>

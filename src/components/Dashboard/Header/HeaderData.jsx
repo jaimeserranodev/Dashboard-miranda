@@ -1,33 +1,31 @@
 
-import React from 'react'
-import { AiOutlineArrowRight } from 'react-icons/ai';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+// import React from 'react'
+// import { AiOutlineArrowRight } from 'react-icons/ai';
+// import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-export const HeaderData = [
-{
-    title:"Dashboard",
-    icon: <AiOutlineArrowLeft />,
-    
-    
-},
+// export const HeaderData = [
 // {
-//     title:"Bookings",
+//     title:"Dashboard",
 //     icon: <AiOutlineArrowLeft />,
-    
 // },
-// {
-//     title:"Rooms",
-//     icon: <AiOutlineArrowRight />,
+// // {
+// //     title:"Bookings",
+// //     icon: <AiOutlineArrowLeft />,
+    
+// // },
+// // {
+// //     title:"Rooms",
+// //     icon: <AiOutlineArrowRight />,
 
-// },
-// {
-//     title:"Contact",
-//     icon: <AiOutlineArrowRight />,
+// // },
+// // {
+// //     title:"Contact",
+// //     icon: <AiOutlineArrowRight />,
     
-// },
-// {
-//     title:"Users",
-//     icon: <AiOutlineArrowRight />,
+// // },
+// // {
+// //     title:"Users",
+// //     icon: <AiOutlineArrowRight />,
     
-// },
-] 
+// // },
+// ] 
