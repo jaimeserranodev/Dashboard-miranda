@@ -4,7 +4,7 @@ const Table = () => {
 
     const row = [
         {
-            guest: "Angela Smith",
+            guest: "pepe Smith",
             id: "#132123123",
             img: "https://m.media-amazon.com/images/I/81bc8mA3nKL._AC_UY327_FMwebp_QL65_.jpg",
             date: "Oct 30th 2020",

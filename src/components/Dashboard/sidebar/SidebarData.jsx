@@ -8,7 +8,7 @@ export const SidebarData = [
 {
     title:"Dashboard",
     icon: <LuLayoutDashboard />,
-    link: "/",
+    link: "/Home",
 },
 {
     title:"Bookings",
