@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../../../App.css"
 import logo from '../../../imagenes/Logo.png';
 import perfil from '../../../imagenes/foto.perfil.jpeg';
 import "./Sidebar.css";
-
+import EditUser from '../../editUser/EditUser';
 import { SidebarData } from './SidebarData';
 
+
 function Sidebar() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
     return (
         <div className='Sidebar'>
             <li className='logo'>
@@ -35,8 +42,18 @@ function Sidebar() {
                 <img id='perfil' src={perfil} alt="" />
                 <p>Jaime Serrano</p>
                 <span>jaimeserrano.dev@gmail.com</span>
-                <button>Editar</button>
+                <button onClick={openModal}>Editar</button>
             </div>
+            {isModalOpen && (
+            <div className='modal'>
+                <div className='modal-content'>
+                    <span className='close' onClick={() => setIsModalOpen(false)}>
+                    &times;
+                    </span>
+                    <EditUser />
+                </div>
+            </div>
+        )}
             <div className="copywrite">
                 <p>Travl Hotel Admin Dashboard</p>
                 <div className='spans'>

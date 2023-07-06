@@ -1,0 +1,23 @@
+.editUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-left: 500px;
+  margin-top: -500px;
+  position: absolute;
+  background-color: gray;
+  border-radius: 20px;
+}
+.editUser .editUser_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+.editUser .editUser_form__div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3%;
+}/*# sourceMappingURL=editUser.css.map */

@@ -1,32 +1,33 @@
 
-// import { useRef } from 'react'
-import React from 'react'
+import React, { useContext } from 'react'
 import "./formulario.css"
-import Home from '../../pages/home/Home'
+import { useDispatch } from 'react-redux';
 import { AuthContext } from '../../context/AuthContext'
-import { useState } from 'react'
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { login } from "../../features/loginSlice";
 
-const Formulario = () => {
+
+const LoginUser = () => {
+
     const { email, setEmail, password, setPassword } = useContext(AuthContext);
     const navigate = useNavigate()
-    
+    const dispatch = useDispatch();
+
     const handleSubmit = (e) => {
-    e.preventDefault();
+        e.preventDefault();
+        
+        dispatch(login({ email, password }));
 
-    console.log(email);
-    console.log(password);
-    if (email === "admin" && password === "admin") {
-    localStorage.setItem("logged", "true");
-    localStorage.setItem("email", "email");
-    localStorage.setItem("password", "password");
+        if (email === 'admin' && password === 'admin') {
+            localStorage.setItem('logged', 'true');
+            localStorage.setItem('email', 'admin');
+            localStorage.setItem('password', 'admin');
 
-    navigate("/Home");
-    } else{
-        console.log("Usuario o contraseña incorrectos")
-    }
-};
+            navigate('/Home');
+        } else {
+            console.log('Usuario o contraseña incorrectos');
+        }
+    };
 
     return(
         <div className='formularioLogin'>
@@ -62,5 +63,5 @@ const Formulario = () => {
     );
 }
 
-export default Formulario
+export default LoginUser
 

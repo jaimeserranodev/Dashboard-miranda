@@ -1,14 +1,14 @@
 import React from 'react'
-import Formulario from '../../components/formulario/formulario'
+import LoginUser from '../../components/LoginUser/LoginUser'
 import "./login.css"
-
-
+import { Provider } from 'react-redux';
+import store from '../../store/store';
 function Login() {
     return (
         <div className="login">
-            
-                <Formulario />
-            
+            <Provider store={store}>
+                <LoginUser />
+            </Provider>
         </div>
     )
 }

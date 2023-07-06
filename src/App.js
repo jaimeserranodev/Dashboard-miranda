@@ -9,10 +9,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import  AuthContextProvider  from './context/AuthContext';
 import { PrivateRoute } from './router/private.Route';
 
-
 function App() {
-
-
   return (
     
       <BrowserRouter>
@@ -26,8 +23,9 @@ function App() {
                           <Route path="/Booking" element={<Booking />} />
                           <Route path="/Contact" element={<Contact />} />
                           <Route path="/Rooms" element={<Rooms />} />
+                          <Route path="/Users" element={<Users />} />
                         </Route>
-                      <Route path="/Users" element={<Users />} />
+                      
                   </Routes>
                 </AuthContextProvider>
         </div>
@@ -35,5 +33,4 @@ function App() {
     
   );
 }
-
 export default App;

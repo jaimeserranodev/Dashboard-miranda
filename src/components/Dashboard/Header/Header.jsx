@@ -6,15 +6,20 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { AuthContext } from '../../../context/AuthContext';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../features/loginSlice';
+
 
 
 function Header({ toggleSidebar, showSidebar }) {
+
+    const dispatch = useDispatch();
+
     const { handleLogout } = useContext(AuthContext);
     
     const getTitle = () => {
         const ruta = window.location.pathname;
         let titulo;
-
         switch (ruta) {
             case "/Home":
                 titulo = "Dashboard";
@@ -35,10 +40,8 @@ function Header({ toggleSidebar, showSidebar }) {
                 titulo = "Página no encontrada";
                 break;
         }
-
         return titulo;
     };
-
 
     const icon = showSidebar ? (
         <AiOutlineArrowLeft className='icon' />
@@ -46,8 +49,19 @@ function Header({ toggleSidebar, showSidebar }) {
         <AiOutlineArrowRight className='icon' />
     );
 
+
+
+
+    const handleLogoutClick = () => {
+        dispatch(logout());
+        handleLogout();
+    };
+
+
+
     return (
         <div className='Header'>
+            
             <div className="wrapper">
                 <ul className='HeaderList'>
                     <li className='titulos'>
@@ -69,10 +83,11 @@ function Header({ toggleSidebar, showSidebar }) {
                         <div className="counter">2</div>
                     </div>
                     <div className='item'>
-                        <MdLogout onClick={handleLogout} className='icon' />
+                        <MdLogout onClick={handleLogoutClick} className='icon' />
                     </div>
                 </div>
             </div>
+            
         </div>
     );
 }
