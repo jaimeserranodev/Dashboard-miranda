@@ -3,12 +3,11 @@ import { useDispatch } from 'react-redux';
 import { sortBy } from './bookingSlice';
 
 
-export default function BasicSelect() {
+export default function SortByComponent() {
     const dispatch = useDispatch();
     const [selectedValue, setSelectedValue] = useState('');
 
-    const handleSortBy = (e) => {
-        const value = e.target.value;
+    const handleSortBy = (value) => {
         dispatch(sortBy(value));
         setSelectedValue(value);
     };

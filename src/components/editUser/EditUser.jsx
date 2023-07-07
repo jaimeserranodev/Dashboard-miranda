@@ -1,6 +1,6 @@
 import React, {  useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { updateUser } from '../../features/loginSlice';
 import "./editUser.css"
 
@@ -16,19 +16,9 @@ const EditUser = () => {
         setPassword('');
 
         console.log('Nuevo email:', email);
-    console.log('Nueva contraseña:', password);
+        console.log('Nueva contraseña:', password);
     };
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     dispatch({ 
-    //         type: 'UPDATE_USER', 
-    //         payload: { email: email, password: password } 
-    //     });
-    //     setEmail('');
-    //     setPassword('');
-    // };
-    
     return (
     <div className='editUser'>
         <h1>Nuevo empleado</h1>

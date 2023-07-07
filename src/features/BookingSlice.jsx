@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import BookingDaata from "../pages/booking/BookingDaata.json"
 
 let initialState = {
-    list: BookingDaata
+    list: BookingDaata,
+    sortBy: 'guest',
 }
 
 let bookingSlice = createSlice({
@@ -11,7 +12,8 @@ let bookingSlice = createSlice({
     reducers: {
         
         sortBy: (state, action) => {
-            switch (action.payload) {
+            const sortByValue = action.payload;
+            switch (sortByValue) {
                 case 'guest':
                     state.list.sort((a, b) => a.guest.localeCompare(b.guest));
                     break;
@@ -27,9 +29,9 @@ let bookingSlice = createSlice({
                 default:
                     break;
             }
+            state.sortBy = sortByValue;
         },
         }
     })
-
-export default bookingSlice.reducer;
-export const {  sortBy } = bookingSlice.actions
+    export const {  sortBy } = bookingSlice.actions;    
+    export default bookingSlice.reducer;
