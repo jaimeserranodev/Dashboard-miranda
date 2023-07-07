@@ -52,12 +52,3 @@ const EditUser = () => {
 };
 
 export default EditUser
-
-
-        // e.preventDefault();
-        // dispatch(updateUser({ email, password }));
-        // setEmail('');
-        // setPassword('');
-
-        // console.log('Nuevo email:', email);
-        // console.log('Nueva contraseña:', password);

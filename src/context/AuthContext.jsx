@@ -53,8 +53,8 @@ const initialState = {
         authState,
         authDispatch,
         isLoggedIn: authState.isLoggedIn,
-        userEmail: authState.email,
-        userName: authState.password,
+        email: authState.email,
+        email: authState.password,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
