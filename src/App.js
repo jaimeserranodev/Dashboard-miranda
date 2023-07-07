@@ -6,7 +6,7 @@ import Rooms from './pages/rooms/Rooms';
 import Users from './pages/users/Users';
 import Login from './pages/login/Login';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import  AuthContextProvider  from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { PrivateRoute } from './router/private.Route';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
     
       <BrowserRouter>
         <div className="App">
-        <AuthContextProvider>
+        <AuthProvider>
           
                   <Routes>
                       <Route exact path="/" element={<Login/>} />
@@ -27,7 +27,7 @@ function App() {
                         </Route>
                       
                   </Routes>
-                </AuthContextProvider>
+                </AuthProvider>
         </div>
       </BrowserRouter>
     

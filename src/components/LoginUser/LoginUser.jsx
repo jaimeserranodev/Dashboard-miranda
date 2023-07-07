@@ -1,33 +1,37 @@
 
-import React, { useContext } from 'react'
 import "./formulario.css"
-import { useDispatch } from 'react-redux';
-import { AuthContext } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
-import { login } from "../../features/loginSlice";
-
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginUser = () => {
 
-    const { email, setEmail, password, setPassword } = useContext(AuthContext);
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
+    const { authState, authDispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        dispatch(login({ email, password }));
-
         if (email === 'admin' && password === 'admin') {
+            authDispatch({ type: "LOGIN", payload: { email, password }});
+            navigate("/Home");
+        } else {
+          // Aquí puedes mostrar un mensaje de error o realizar cualquier otra acción
+            console.log('Credenciales incorrectas');
+        }
+    }
+
+    useEffect(() => {
+        if (authState.isLoggedIn) {
             localStorage.setItem('logged', 'true');
             localStorage.setItem('email', 'admin');
             localStorage.setItem('password', 'admin');
-
-            navigate('/Home');
-        } else {
-            console.log('Usuario o contraseña incorrectos');
+            navigate("/Home");
+        }else {
+            navigate("/")
         }
-    };
+    }, [authState.isLoggedIn, navigate]);
 
     return(
         <div className='formularioLogin'>
@@ -64,4 +68,3 @@ const LoginUser = () => {
 }
 
 export default LoginUser
-

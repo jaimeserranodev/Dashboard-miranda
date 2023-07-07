@@ -6,16 +6,10 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { AuthContext } from '../../../context/AuthContext';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../features/loginSlice';
-
-
 
 function Header({ toggleSidebar, showSidebar }) {
 
-    const dispatch = useDispatch();
-
-    const { handleLogout } = useContext(AuthContext);
+    const { authDispatch } = useContext(AuthContext);
     
     const getTitle = () => {
         const ruta = window.location.pathname;
@@ -49,16 +43,9 @@ function Header({ toggleSidebar, showSidebar }) {
         <AiOutlineArrowRight className='icon' />
     );
 
-
-
-
     const handleLogoutClick = () => {
-        dispatch(logout());
-        handleLogout();
-    };
-
-
-
+        authDispatch({ type: "LOGOUT" });
+    }
     return (
         <div className='Header'>
             

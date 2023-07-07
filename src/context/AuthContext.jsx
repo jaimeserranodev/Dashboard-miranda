@@ -1,35 +1,63 @@
-import { createContext, useState } from "react";
+import React, { createContext, useReducer } from "react";
 
-
-export const AuthContext = createContext();
-
-const AuthContextProvider = ( {children} ) => {
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const handleLogout = () => {
-        setEmail("");
-        setPassword("");
-        localStorage.removeItem("logged");
-        localStorage.removeItem("email");
-        localStorage.removeItem("password");
-        window.location.reload();
+const initialState = {
+    isLoggedIn: false,
+    email: "",
+    password: "",
     };
 
-    const data = {
-        email,
-        setEmail,
-        password,
-        setPassword,
-        handleLogout
-    }
+    const authReducer = (state, action) => {
+    switch (action.type) {
+        case "LOGIN":
+            return {
+                ...state,
+                isLoggedIn: true,
+                email: action.payload.email,
+                password: action.payload.password,
+            };
+            case "LOGOUT":
+                localStorage.removeItem('logged');
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+                window.location.reload()
 
-    return (
-        <AuthContext.Provider value={data}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+                return {
+                    ...state,
+                    isLoggedIn: false,
+                    email: "",
+                    password: "",
+                };
+                
+        case "UPDATE_USER":
 
-export default AuthContextProvider;
+            return {
+                ...state,
+                email: action.payload.email,
+                password: action.payload.password,
+            };
+        default:
+            return state;
+        }
+    };
+
+
+    const AuthContext = createContext({
+        authState: initialState,
+        authDispatch: () => {},
+    });
+
+    const AuthProvider = ({ children }) => {
+    const [authState, authDispatch] = useReducer(authReducer, initialState);
+
+    const value = {
+        authState,
+        authDispatch,
+        isLoggedIn: authState.isLoggedIn,
+        userEmail: authState.email,
+        userName: authState.password,
+    };
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+    };
+
+    export { AuthProvider, AuthContext };

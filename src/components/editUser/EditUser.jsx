@@ -1,22 +1,26 @@
-import React, {  useContext } from 'react';
+
 import { AuthContext } from '../../context/AuthContext';
-import {  useDispatch } from 'react-redux';
-import { updateUser } from '../../features/loginSlice';
+import React, { useContext, useState, useEffect } from 'react';
 import "./editUser.css"
 
 const EditUser = () => {
-    const { email, password, setEmail, setPassword} = useContext(AuthContext);
-    const dispatch = useDispatch();
+    
 
+    const { authState, authDispatch } = useContext(AuthContext);
+    const { email: initialEmail, password: initialPassword } = authState;
+    const [email, setEmail] = useState(initialEmail);
+    const [password, setPassword] = useState(initialPassword);
+
+    useEffect(() => {
+        setEmail(initialEmail);
+        setPassword(initialPassword);
+    }, [initialEmail, initialPassword]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(updateUser({ email, password }));
-        setEmail('');
-        setPassword('');
-
-        console.log('Nuevo email:', email);
-        console.log('Nueva contraseña:', password);
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+        authDispatch({ type: 'UPDATE_USER', payload: { email, password } });
     };
 
     return (
@@ -48,3 +52,12 @@ const EditUser = () => {
 };
 
 export default EditUser
+
+
+        // e.preventDefault();
+        // dispatch(updateUser({ email, password }));
+        // setEmail('');
+        // setPassword('');
+
+        // console.log('Nuevo email:', email);
+        // console.log('Nueva contraseña:', password);
