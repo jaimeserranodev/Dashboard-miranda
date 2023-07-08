@@ -1,5 +1,5 @@
 import React from 'react'
-import "./guestDetail.css"
+import "./styles/guestDetail.css"
 import perfil from "../../imagenes/foto.perfil.jpeg"
 const GuestDetail = () => {
     return (

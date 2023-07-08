@@ -1,5 +1,5 @@
 
-import "./formulario.css"
+import "./styles/LoginUser.css"
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,6 @@ const LoginUser = () => {
             authDispatch({ type: "LOGIN", payload: { email, password }});
             navigate("/Home");
         } else {
-          // Aquí puedes mostrar un mensaje de error o realizar cualquier otra acción
             console.log('Credenciales incorrectas');
         }
     }

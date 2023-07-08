@@ -1,5 +1,5 @@
 import React from 'react'
-import "./booking.css"
+import "./styles/booking.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { sortBy } from "../../features/BookingSlice"
 import { useState } from 'react';

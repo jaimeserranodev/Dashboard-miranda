@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
 import Header from '../../components/Dashboard/Header/Header'
-import "./users.css"
+import "./styles/users.css"
 function Users() {
     const [showSidebar, setShowSidebar] = useState(true);
 

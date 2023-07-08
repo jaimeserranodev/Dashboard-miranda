@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginUser from '../../components/LoginUser/LoginUser'
-import "./login.css"
+import "./styles/login.css"
 
 function Login() {
     return (

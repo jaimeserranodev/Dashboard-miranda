@@ -9,11 +9,15 @@ const initialState = {
     const authReducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
+            const { email, password } = action.payload;
+            
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
             return {
                 ...state,
                 isLoggedIn: true,
-                email: action.payload.email,
-                password: action.payload.password,
+                email,
+                password,
             };
             case "LOGOUT":
                 localStorage.removeItem('logged');
@@ -47,14 +51,14 @@ const initialState = {
     });
 
     const AuthProvider = ({ children }) => {
-    const [authState, authDispatch] = useReducer(authReducer, initialState);
+        const [authState, authDispatch] = useReducer(authReducer, initialState);
+        const { isLoggedIn, email } = authState;
 
     const value = {
         authState,
         authDispatch,
-        isLoggedIn: authState.isLoggedIn,
-        email: authState.email,
-        email: authState.password,
+        isLoggedIn,
+        email,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

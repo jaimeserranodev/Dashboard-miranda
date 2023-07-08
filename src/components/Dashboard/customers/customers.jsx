@@ -1,5 +1,5 @@
 import React from 'react'
-import "./customers.css"
+import "./styles/customers.css"
 import perfil from '../../../imagenes/foto.perfil.jpeg';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';

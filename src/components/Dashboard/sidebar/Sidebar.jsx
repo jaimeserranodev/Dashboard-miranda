@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../../../App.css"
 import logo from '../../../imagenes/Logo.png';
 import perfil from '../../../imagenes/foto.perfil.jpeg';
-import "./Sidebar.css";
+import "./styles/Sidebar.css";
 import EditUser from '../../editUser/EditUser';
 import { SidebarData } from './SidebarData';
 

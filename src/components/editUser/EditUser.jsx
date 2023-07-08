@@ -1,7 +1,7 @@
 
 import { AuthContext } from '../../context/AuthContext';
 import React, { useContext, useState, useEffect } from 'react';
-import "./editUser.css"
+import "./styles/editUser.css"
 
 const EditUser = () => {
     

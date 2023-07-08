@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./table.css";
+import "./styles/table.css";
 
 
 //-----------PAGINATION---------------------//
@@ -91,7 +91,7 @@ import "./table.css";
                 <td className='tableCell'>
                 <span className={`request ${booking.request}`}>{booking.request}</span>
                 </td>
-                <td className='tableCell'>{booking.roomType}</td>
+                <td className='tableCell'>{booking.roomTipe}</td>
                 <td className='tableCell'>
                 <span className={`status ${booking.status}`}>{booking.status}</span>
                 </td>

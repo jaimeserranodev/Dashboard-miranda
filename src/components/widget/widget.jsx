@@ -3,7 +3,7 @@ import { BiBed } from 'react-icons/bi';
 import { LuCalendarCheck2 } from 'react-icons/lu';
 import { BsBoxArrowRight } from 'react-icons/bs';
 import { BsBoxArrowLeft } from 'react-icons/bs';
-import "./widget.css"
+import "./styles/widget.css"
 
 const Widget = ({ type }) => {
 
