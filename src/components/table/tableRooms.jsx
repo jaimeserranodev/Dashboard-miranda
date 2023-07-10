@@ -114,12 +114,37 @@ const TableRooms = () => {
 
   if (selectedRoom) {
     return (
-      <div>
-        <h2>Datos de la habitación</h2>
-        <p>Room Number: {selectedRoom.roomNumber}</p>
-        <p>ID: {selectedRoom.id}</p>
-        {/* Mostrar los demás datos de la habitación */}
+
+      //------------------------ MODAL ROOM DETAILS------------//
+      <div className='roomDetails'>
+        <div className="left">
+          <h2>Room Type: {selectedRoom.roomType}</h2>
+          <p>Room Number: <br /><span>{selectedRoom.roomNumber}</span></p>
+          <span>Description: <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit doloribus ducimus enim animi eum modi maiores. Debitis numquam quisquam nobis!</p></span>
+          <div className='roomOffer'>
+            <div className="price">
+              <span>Prices</span>
+              <p>Price: {selectedRoom.price}</p>
+              <p>Discount: {selectedRoom.offerPrice}%</p>
+            </div>
+            <div className="offer">
+              <label htmlFor="offer">
+                <span>Offer:</span>
+                <input type="checkbox" id="offer" />
+                  
+              </label>
+            </div>
+          </div>
+          <span>Cancellation:<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates architecto, alias perferendis vitae saepe omnis quia nemo quam autem temporibus.</p></span>
+          <p>Amenities:<p className='amenities'>{selectedRoom.Amenities}</p> </p>
+          
+          {/* Mostrar los demás datos de la habitación */}
         <button onClick={closeModal}>Cerrar</button>
+        </div>
+        <div className="right">
+          <img className='img-roomDetail' src="/room1.jpg" alt="" />
+        </div>
+          
       </div>
     );
   }
