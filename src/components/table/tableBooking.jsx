@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./styles/table.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { sortBy } from "../../features/BookingSlice"
 
 
 //-----------PAGINATION---------------------//
@@ -38,11 +40,21 @@ import "./styles/table.css";
 
     //-------------------------- TABLA-----------------------//
 
-    const Table = ({ bookings }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const bookingsPerPage = 8;
+    const Table = () => {
+        const dispatch = useDispatch();
+        const [currentPage, setCurrentPage] = useState(1);
+        const bookingsPerPage = 8;
+        const bookings = useSelector((state) => state.booking.list);
+        const sortByValue = useSelector((state) => state.booking.sortBy);
+    
     const totalPages = Math.ceil(bookings.length / bookingsPerPage);
 
+
+    const handleSortBy = (value) => {
+        dispatch(sortBy(value));
+    };
+
+    
     const goToPage = (page) => {
         setCurrentPage(page);
     };
@@ -62,6 +74,7 @@ import "./styles/table.css";
     const indexOfLastBooking = currentPage * bookingsPerPage;
     const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
     const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
+
 
     return (
         <div>

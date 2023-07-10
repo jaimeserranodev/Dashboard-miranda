@@ -1,6 +1,11 @@
-.widget {
+.widgets {
+  width: 80%;
+}
+.widgets .widget {
+  margin-left: 40%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 1;
   padding: 10px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -9,38 +14,47 @@
   height: 100px;
   width: 200px;
 }
-.widget .left, .widget .right {
+.widgets .widget .left, .widgets .widget .right {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.widget .left {
+.widgets .widget .left {
   width: 65px;
   height: 64px;
   background-color: #FFEDEC;
   border-radius: 20%;
 }
-.widget .widget-icon {
+.widgets .widget .widget-icon {
   width: 28px;
   height: 20px;
   color: #E23428;
 }
-.widget .right {
+.widgets .widget .right {
   margin-left: 20px;
   text-align: left;
 }
-.widget .right .number {
+.widgets .widget .right .number {
   text-align: left;
   font: normal normal 600 30px/46px "Poppins";
   letter-spacing: 0px;
   color: #393939;
   opacity: 1;
 }
-.widget .right .subtitle {
+.widgets .widget .right .subtitle {
   text-align: left;
   font: normal normal 300 14px/21px "Poppins";
   letter-spacing: 0px;
   color: #787878;
   opacity: 1;
+}
+.widgets .widget:hover {
+  height: 105px;
+  width: 210px;
+}
+.widgets .widget:hover .widget-icon {
+  width: 30px;
+  height: 25px;
+  color: #E23428;
 }/*# sourceMappingURL=widget.css.map */

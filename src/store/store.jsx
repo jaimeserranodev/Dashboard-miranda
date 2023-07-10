@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bookingReducer from '../features/BookingSlice';
-// import loginReducer from "../features/loginSlice";
+import roomReducer from '../features/roomSlice';
+
 
 export const store = configureStore({
     reducer: {
         booking: bookingReducer,
-        // login: loginReducer,
+        rooms: roomReducer,
     },
 });
 export default store;

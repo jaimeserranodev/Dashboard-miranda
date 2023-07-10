@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
 import Header from '../../components/Dashboard/Header/Header'
-import Table from '../../components/table/table'
+import Table from '../../components/table/tableRooms'
 
 import RoomsList from './RoomList';
-import BookingDaata from "../booking/BookingDaata.json"
+import roomListData from "./roomListData.json"
 import { store } from '../../store/store';
 import { Provider } from 'react-redux';
 
@@ -23,7 +23,7 @@ function Rooms() {
                 <div className="homeContainer">
                     <Header  toggleSidebar={toggleSidebar} showSidebar={showSidebar}/>
                     <RoomsList />
-                    <Table bookings={BookingDaata}/>
+                    <Table rooms={roomListData}/>
                 </div>
             </div>
         </Provider>

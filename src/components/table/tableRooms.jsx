@@ -1,0 +1,176 @@
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { sortByStatus, sortByPrice, addRoom } from "../../features/roomSlice";
+import "./styles/table.css";
+
+//-----------PAGINATION---------------------//
+
+const Pagination = ({ currentPage, totalPages, goToPage, goToNextPage, goToPreviousPage }) => {
+  const visiblePageNumbers = [];
+
+  const maxVisiblePages = 4;
+  const startPage = Math.max(currentPage - 1, 1);
+  const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+
+  for (let i = startPage; i <= endPage; i++) {
+    visiblePageNumbers.push(i);
+  }
+
+  return (
+    <div className='pagination'>
+      <button className='btn' onClick={goToPreviousPage} disabled={currentPage === 1}>Prev</button>
+      <div className="page-buttons">
+        {visiblePageNumbers.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            className={`page-button ${pageNumber === currentPage ? 'active' : ''}`}
+            onClick={() => goToPage(pageNumber)}
+          >
+            {pageNumber}
+          </button>
+        ))}
+      </div>
+      <button className='btn' onClick={goToNextPage} disabled={currentPage === totalPages}>Next</button>
+    </div>
+  );
+};
+
+//-------------------------- TABLE ROOMS -----------------------//
+
+const TableRooms = () => {
+  const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const roomsPerPage = 8;
+  const rooms = useSelector((state) => state.rooms.list);
+  const sortByValue = useSelector((state) => state.rooms.sortBy);
+
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
+
+
+  const [selectedRoom, setSelectedRoom] = useState(null); // Estado para almacenar la fila seleccionada
+//   const [draggedItem, setDraggedItem] = useState(null);
+
+
+  const handleSortBy = (value) => {
+    if (value === 'status') {
+      dispatch(sortByStatus());
+    } else if (value === 'price') {
+      dispatch(sortByPrice());
+    }
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const indexOfLastRoom = currentPage * roomsPerPage;
+  const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
+  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
+
+
+//----------------- DRAP AND DROP --------------------------------//
+  
+//   const handleDragStart = (event, room) => {
+//     setDraggedItem(room);
+//   };
+
+//   const handleDragEnter = (event, room) => {
+//     const updatedRooms = [...rooms];
+//     const draggedItem = updatedRooms.find((item) => item === draggedItem);
+//     updatedRooms.splice(updatedRooms.indexOf(draggedItem), 1);
+//     updatedRooms.unshift(draggedItem);
+//     dispatch(addRoom(updatedRooms)); // Utiliza la acción addRoom para agregar la habitación en la posición deseada
+//   };
+
+//   const handleDragOver = (event) => {
+//     event.preventDefault();
+//   };
+
+//   const handleDragEnd = () => {
+//     setDraggedItem(null);
+//   };
+
+
+
+  const handleRowClick = (room) => {
+    setSelectedRoom(room);
+  };
+
+  const closeModal = () => {
+    setSelectedRoom(null);
+  };
+
+  if (selectedRoom) {
+    return (
+      <div>
+        <h2>Datos de la habitación</h2>
+        <p>Room Number: {selectedRoom.roomNumber}</p>
+        <p>ID: {selectedRoom.id}</p>
+        {/* Mostrar los demás datos de la habitación */}
+        <button onClick={closeModal}>Cerrar</button>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <table className='table'>
+        <tr className='borderTabla'>
+          <th className='tableCell'>Photo</th>
+          <th className='tableCell'>Room Number</th>
+          <th className='tableCell'>ID</th>
+          <th className='tableCell'>Room Type</th>
+          <th className='tableCell'>Amenities</th>
+          <th className='tableCell'>Price</th>
+          <th className='tableCell'>Offer Price</th>
+          <th className='tableCell'>Status</th>
+        </tr>
+        {currentRooms.map((room, index) => (
+          <tr
+          className='tableRow'
+          key={index}
+          onClick={() => handleRowClick(room)} // Manejar el clic en la fila
+        
+            // draggable
+            // onDragStart={(event) => handleDragStart(event, room)}
+            // onDragEnter={(event) => handleDragEnter(event, room)}
+            // onDragOver={handleDragOver}
+            // onDragEnd={handleDragEnd}
+        >
+            <td className='tableCell'>
+              <img src={room.photo} alt="" className='image' />
+            </td>
+            <td className='tableCell'>{room.roomNumber}</td>
+            <td className='tableCell'>{room.id}</td>
+            <td className='tableCell'>{room.roomType}</td>
+            <td className='tableCell'>{room.Amenities}</td>
+            <td className='tableCell'>{room.price}</td>
+            <td className='tableCell'>{room.offerPrice}</td>
+            <td className='tableCell'>{room.status}</td>
+          </tr>
+        ))}
+      </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        goToPage={goToPage}
+        goToNextPage={goToNextPage}
+        goToPreviousPage={goToPreviousPage}
+      />
+    </div>
+  );
+};
+
+export default TableRooms;

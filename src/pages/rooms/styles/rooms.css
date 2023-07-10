@@ -1,0 +1,116 @@
+.RoomsList {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3%;
+  margin-left: 20px;
+}
+.RoomsList .menu {
+  border: none;
+}
+.RoomsList .menu .menu_button {
+  border: none;
+  color: #6E6E6E;
+  width: 250px;
+  background-color: #F8F8F8;
+  border-bottom: 3px solid #F5F5F5;
+  text-align: right;
+  font-family: "Poppins";
+  font-size: medium;
+  text-align: center;
+  padding-bottom: 25px;
+}
+.RoomsList .menu :hover {
+  color: #135846;
+  cursor: pointer;
+  border-bottom: 4px solid #135846;
+  font-size: large;
+  font-weight: 500;
+}
+
+.modal_New-room button {
+  background-color: #135846;
+  color: #fff;
+  width: 200px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+.modal_New-room button:hover {
+  background-color: #45a049;
+}
+
+.div-sortBy {
+  margin-right: 50px;
+}
+
+.close {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close:hover {
+  background-color: #999;
+}
+
+.modal-new-room {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-20%, -30%);
+}
+
+.form-new-room {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: grid;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type=file],
+input[type=text],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type=checkbox] {
+  margin-right: 5px;
+}
+
+.roomType-roomNumber {
+  display: flex;
+  flex: 1;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+.roomType-roomNumber .div_roomType {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}/*# sourceMappingURL=rooms.css.map */

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
 import Header from '../../components/Dashboard/Header/Header'
-import Table from '../../components/table/table'
+import Table from '../../components/table/tableBooking'
 import BookingList from './BookingList';
 import BookingDaata from "./BookingDaata.json"
 import { store } from '../../store/store';
 import { Provider } from 'react-redux';
+
 
 function Booking() {
 

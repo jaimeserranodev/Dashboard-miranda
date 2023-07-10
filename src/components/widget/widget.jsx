@@ -41,15 +41,17 @@ const Widget = ({ type }) => {
 
         }
     return (
-        <div className='widget'>
-            <div className="left"> 
-                {data.icon}
-            </div>
-            <div className="right">
-                <span className='number'>{data.number}</span>
-                <span className='subtitle'>{data.subtitle}</span>
-            </div>
+        <div className="widgets">
+            <div className='widget'>
+                <div className="left"> 
+                    {data.icon}
+                </div>
+                <div className="right">
+                    <span className='number'>{data.number}</span>
+                    <span className='subtitle'>{data.subtitle}</span>
+                </div>
 
+            </div>
         </div>
     )
 }
