@@ -36,7 +36,7 @@ const LoginUser = () => {
         <div className='formularioLogin'>
             
             <form className='formLogin'onSubmit={(e)=> handleSubmit(e)} >
-                <div>
+                
                     <h1>Bienvenido</h1>
                     <input 
                         type="text" 
@@ -47,8 +47,7 @@ const LoginUser = () => {
                         autoComplete='off'
                         placeholder='email'
                         />
-                </div>
-                <div>
+                
                     <input 
                         type="password"  
                         name="nombreContraseña" 
@@ -58,10 +57,10 @@ const LoginUser = () => {
                         autoComplete='off'
                         placeholder='password'
                         />
-                </div>
+                
                 <button>Login</button>
             </form>
-            
+            <h5>Creado por Jaime Serrano</h5>
         </div>
     );
 }

@@ -174,16 +174,16 @@ const TableRooms = () => {
             // onDragOver={handleDragOver}
             // onDragEnd={handleDragEnd}
         >
-            <td className='tableCell'>
+            <td className='tableCellPhoto'>
               <img src={room.photo} alt="" className='image' />
             </td>
-            <td className='tableCell'>{room.roomNumber}</td>
+            <td className='tableCellroomNumber'>{room.roomNumber}</td>
             <td className='tableCell'>{room.id}</td>
             <td className='tableCell'>{room.roomType}</td>
             <td className='tableCell'>{room.Amenities}</td>
             <td className='tableCell'>{room.price}</td>
-            <td className='tableCell'>{room.offerPrice}</td>
-            <td className='tableCell'>{room.status}</td>
+            <td className='tableCell'>{room.offerPrice}%</td>
+            <td className={`statusRoom ${room.status}`}>{room.status}</td>
           </tr>
         ))}
       </table>

@@ -5,11 +5,13 @@ table{
     margin-right: 20%;
     border-radius: 20%;
     text-align: left;
-    
+    border-collapse: collapse;
     .borderTabla{
-        border-top-left-radius: 5%;
-        border-top-left-radius: 5%;
+        border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
         margin-bottom: 5px;
+        padding: 10px;
+        padding-left: 20px;
     }
 }
 
@@ -17,10 +19,16 @@ table{
     margin-bottom: 3px;
 }
 th{
-    display: grid;
+    display: flex;
     grid-template-columns: 100px;
 }
-
+.tableRow{
+    text-align: center;
+}
+.tableCell {
+    display: flex;
+    align-items: center;
+  }
 .tableRow:hover{
         cursor: pointer;
         border: 1px solid #575757;
@@ -47,13 +55,13 @@ tr{
     
 }
 .image{
-    width: 32px;
-    height: 32px;
+    width: 80px;
+    height: 50px;
     border-radius: 20%;
     margin-right: 10px;
 }
 
-
+// STATUS DE BOOKING - ROOMS //
 .status{
     padding: 5px;
     border-radius: 5px;
@@ -79,6 +87,29 @@ tr{
     &.Canceled {
         color: #BEBEBE;
         background-color: #575757;
+    }
+}
+
+.statusRoom{
+    padding: 5px;
+    border-radius: 5px;
+    width: 109px;
+    height: 48px;
+    display: flex;
+    align-items: center;   
+    justify-content: center;
+    border-radius: 20%;
+
+
+    &.Available{
+    color: white;
+    background-color: #5AD07A;
+    }
+
+
+    &.Booked {
+    color: white;
+    background-color: #E23428;
     }
 }
 
@@ -151,7 +182,6 @@ tr{
 // --------------------TABLE DETAILS-------------//
 
 .roomDetails{
-    border: 2px solid black;
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -228,4 +258,36 @@ tr{
         border-color: none;
         cursor: pointer;
     }
+}
+
+// --------------TABLA ROOMS----------------//
+
+.tableCellPhoto{
+    width: 40px;
+}
+.tableCellroomNumber{
+    width: 150px;
+    align-items: center;
+}
+
+
+//------------TABLA CONTACT-------------//
+
+.table{
+    .tableCell{
+        display: flex;
+        flex: 1;
+        margin-bottom: 5px;
+    padding: 10px;
+    padding-left: 10px;
+    }
+    .tableCellComment{
+        display: flex;
+        flex: 2;
+        
+    }
+    .tableRow{
+        text-align: left;
+    }
+
 }

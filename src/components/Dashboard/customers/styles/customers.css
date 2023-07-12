@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 431px;
+  width: 33%;
   height: 275px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0196078431);
@@ -41,14 +41,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 371px;
 }
 .customers .wrapper-top-botton .botton {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 371px;
+  width: 80%;
 }
 .customers .wrapper-top-botton .botton .botton-text {
   display: flex;

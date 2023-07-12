@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sortByStatus, sortByPrice } from "../../features/roomSlice";
+import { sortByStatus, sortByPrice, sortByAllRooms, sortByAvailable, sortByBooked, addRoom } from "../../features/roomSlice";
 import NewRoom from './NewRoom';
 import "./styles/rooms.css"
 
@@ -35,13 +35,24 @@ const RoomsList = () => {
         dispatch(sortByPrice());
         }
     };
+    const handleSortByMenu = (selectedValue) => {
+        if (selectedValue === 'allRooms') {
+            dispatch(sortByAllRooms());
+        } else if (selectedValue === 'available') {
+            dispatch(sortByAvailable());
+        } else if (selectedValue === 'booked') {
+            dispatch(sortByBooked());
+        }
+    };
+
+
 
     return (
         <div className='RoomsList'>
             <div className="menu">
-                <button className='menu_button'>All Rooms</button>
-                <button className='menu_button'>Active Employee</button>
-                <button className='menu_button'>Inactive Employee</button>
+                <button className='menu_button' onClick={() => handleSortByMenu('allRooms')}>All Rooms</button>
+                <button className='menu_button' onClick={() => handleSortByMenu('available')}>Available</button>
+                <button className='menu_button' onClick={() => handleSortByMenu('booked')}>Booked</button>
         </div>
 
         <div className='modal_New-room'>

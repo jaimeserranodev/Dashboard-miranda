@@ -5,11 +5,14 @@ table {
   margin-right: 20%;
   border-radius: 20%;
   text-align: left;
+  border-collapse: collapse;
 }
 table .borderTabla {
-  border-top-left-radius: 5%;
-  border-top-left-radius: 5%;
+  border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
   margin-bottom: 5px;
+  padding: 10px;
+  padding-left: 20px;
 }
 
 .tableCell {
@@ -17,8 +20,17 @@ table .borderTabla {
 }
 
 th {
-  display: grid;
+  display: flex;
   grid-template-columns: 100px;
+}
+
+.tableRow {
+  text-align: center;
+}
+
+.tableCell {
+  display: flex;
+  align-items: center;
 }
 
 .tableRow:hover {
@@ -44,8 +56,8 @@ tr {
 }
 
 .image {
-  width: 32px;
-  height: 32px;
+  width: 80px;
+  height: 50px;
   border-radius: 20%;
   margin-right: 10px;
 }
@@ -71,6 +83,25 @@ tr {
 .status.Canceled {
   color: #BEBEBE;
   background-color: #575757;
+}
+
+.statusRoom {
+  padding: 5px;
+  border-radius: 5px;
+  width: 109px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20%;
+}
+.statusRoom.Available {
+  color: white;
+  background-color: #5AD07A;
+}
+.statusRoom.Booked {
+  color: white;
+  background-color: #E23428;
 }
 
 .request {
@@ -130,7 +161,6 @@ tr {
 }
 
 .roomDetails {
-  border: 2px solid black;
   padding: 20px;
   display: flex;
   flex-direction: row;
@@ -205,4 +235,28 @@ tr {
   color: white;
   border-color: none;
   cursor: pointer;
+}
+
+.tableCellPhoto {
+  width: 40px;
+}
+
+.tableCellroomNumber {
+  width: 150px;
+  align-items: center;
+}
+
+.table .tableCell {
+  display: flex;
+  flex: 1;
+  margin-bottom: 5px;
+  padding: 10px;
+  padding-left: 10px;
+}
+.table .tableCellComment {
+  display: flex;
+  flex: 2;
+}
+.table .tableRow {
+  text-align: left;
 }/*# sourceMappingURL=table.css.map */

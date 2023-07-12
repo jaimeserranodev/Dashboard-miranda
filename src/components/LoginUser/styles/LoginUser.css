@@ -1,10 +1,17 @@
+@charset "UTF-8";
 .formularioLogin {
-  background-color: #F8F8F8;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F8F7;
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%234eb99f' fill-opacity='1' d='M0,96L16,128C32,160,64,224,96,240C128,256,160,224,192,186.7C224,149,256,107,288,112C320,117,352,171,384,197.3C416,224,448,224,480,218.7C512,213,544,203,576,176C608,149,640,107,672,117.3C704,128,736,192,768,213.3C800,235,832,213,864,181.3C896,149,928,107,960,96C992,85,1024,107,1056,101.3C1088,96,1120,64,1152,69.3C1184,75,1216,117,1248,160C1280,203,1312,245,1344,272C1376,299,1408,309,1424,314.7L1440,320L1440,0L1424,0C1408,0,1376,0,1344,0C1312,0,1280,0,1248,0C1216,0,1184,0,1152,0C1120,0,1088,0,1056,0C1024,0,992,0,960,0C928,0,896,0,864,0C832,0,800,0,768,0C736,0,704,0,672,0C640,0,608,0,576,0C544,0,512,0,480,0C448,0,416,0,384,0C352,0,320,0,288,0C256,0,224,0,192,0C160,0,128,0,96,0C64,0,32,0,16,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+  /* Opcionalmente, puedes ajustar el tamaño y otras propiedades del fondo */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .formLogin {
@@ -20,20 +27,34 @@
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0196078431);
   border-radius: 12px;
+  margin: 20px;
 }
 .formLogin h1 {
   text-align: center;
+  color: #4EB99F;
+  font-family: "Poppins";
 }
-
-input {
+.formLogin input {
   height: 30px;
   width: 300px;
   font-size: 18px;
-  border-radius: 3%;
+  border-radius: 5px;
+  font-family: "Poppins";
 }
 
 button {
-  height: 30px;
+  height: 40px;
   width: 150px;
   font-size: 20px;
+  background-color: #4EB99F;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: "Poppins";
+  margin-top: 30px;
+}
+
+h5 {
+  display: flex;
+  color: #4EB99F;
 }/*# sourceMappingURL=LoginUser.css.map */
