@@ -3,6 +3,7 @@ import "./styles/LoginUser.css"
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Button from "../../styles/variables";
 
 const LoginUser = () => {
 
@@ -10,6 +11,7 @@ const LoginUser = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ const LoginUser = () => {
             authDispatch({ type: "LOGIN", payload: { email, password }});
             navigate("/Home");
         } else {
-            console.log('Credenciales incorrectas');
+            setShowAlert(true);
         }
     }
 
@@ -39,6 +41,7 @@ const LoginUser = () => {
                 
                     <h1>Bienvenido</h1>
                     <input 
+                        data-cy = "email"
                         type="text" 
                         name="email"
                         id="email"
@@ -49,6 +52,7 @@ const LoginUser = () => {
                         />
                 
                     <input 
+                        data-cy = "password"
                         type="password"  
                         name="nombreContraseña" 
                         id="password"
@@ -58,8 +62,11 @@ const LoginUser = () => {
                         placeholder='password'
                         />
                 
-                <button>Login</button>
+                <Button data-cy="submit">Login</Button>
             </form>
+                {showAlert && (
+                <div className="alerta">Credenciales incorrectas. Inténtalo de nuevo.</div>
+                )}
             <h5>Creado por Jaime Serrano</h5>
         </div>
     );

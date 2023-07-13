@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should have the correct background color 1`] = `
+<button
+  class="sc-jzuGiw doIclZ"
+  data-cy="submit"
+>
+  Login
+</button>
+`;
+
+exports[`Button should have the correct background color: background-color: #4EB99F; 1`] = `
+<button
+  class="sc-jzuGiw doIclZ"
+  data-cy="submit"
+>
+  Login
+</button>
+`;
+
+exports[`Button should have the correct background color: background-color: #FF0000 1`] = `
+<button
+  class="sc-jzuGiw doIclZ"
+  color="#FF0000"
+  data-cy="submit"
+>
+  Login
+</button>
+`;
