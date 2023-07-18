@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Button from '../styles/variables';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom/';
+import 'jest-styled-components';
 
 
 
@@ -16,16 +17,16 @@ describe('Button', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('Debería tener ese color de bacñground', () => {
+  it('Debería tener ese color de background', () => {
     const { container } = render(<Button data-cy="submit">Login</Button>);
     
-    expect(container.firstChild).toMatchSnapshot("background-color: #4EB99F;");
+    expect(container.firstChild).toHaveStyleRule("background-color: #4EB99F;");
   });
 
   it('Deberia tener el color del prop', () => {
     const { container } = render(<Button data-cy="submit" color="#FF0000">Login</Button>);
     
-    expect(container.firstChild).toMatchSnapshot('background-color: #FF0000');
+    expect(container.firstChild).toHaveStyleRule('background-color: #FF0000');
   });
 
   it('Deberia tener los estilos de las props de Button', () => {

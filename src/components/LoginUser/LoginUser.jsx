@@ -41,6 +41,7 @@ const LoginUser = () => {
                 
                     <h1>Bienvenido</h1>
                     <input 
+                        className="email"
                         data-cy = "email"
                         type="text" 
                         name="email"
@@ -52,6 +53,7 @@ const LoginUser = () => {
                         />
                 
                     <input 
+                        className="password"
                         data-cy = "password"
                         type="password"  
                         name="nombreContraseña" 
@@ -61,6 +63,13 @@ const LoginUser = () => {
                         autoComplete='off'
                         placeholder='password'
                         />
+
+                        <div className="container">
+                            <h2>Mensaje de Usuario y Contraseña</h2>
+                            <p>El usuario y la contraseña ingresados son 
+                                <span class="highlight">admin</span>.
+                            </p>
+                        </div>
                 
                 <Button data-cy="submit">Login</Button>
             </form>

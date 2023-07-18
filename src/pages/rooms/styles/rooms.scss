@@ -97,9 +97,8 @@
 label {
     font-weight: bold;
 }
-
-    input[type="file"],
-    input[type="text"],
+    .photos,
+    .roomNumber,
     textarea {
     width: 100%;
     padding: 8px;
@@ -107,7 +106,7 @@ label {
     border-radius: 4px;
 }
 
-input[type="checkbox"] {
+.checkbox {
     margin-right: 5px;
 }
 

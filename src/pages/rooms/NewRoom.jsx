@@ -73,6 +73,7 @@ const NewRoom = () => {
             <div>
                 <label htmlFor="photos">Fotos (mínimo 3, máximo 5):</label>
                 <input
+                className='photos'
                 type="file"
                 id="photos"
                 name="photos"
@@ -100,6 +101,7 @@ const NewRoom = () => {
                 <div>
                     <label htmlFor="roomNumber">Número de habitación:</label>
                     <input
+                    className='roomNumber'
                     type="text"
                     id="roomNumber"
                     name="roomNumber"
@@ -120,6 +122,7 @@ const NewRoom = () => {
             <div>
                 <label htmlFor="offer">Oferta:</label>
                 <input
+                className='checkbox'
                 type="checkbox"
                 id="offer"
                 name="offer"

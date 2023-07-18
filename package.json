@@ -20,11 +20,9 @@
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypress-run": "cypress run"
   },
-
-  
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -50,6 +48,7 @@
     "babel-jest": "^29.6.1",
     "cypress": "^12.17.1",
     "jest": "^27.5.1",
+    "jest-styled-components": "^7.1.1",
     "react-test-renderer": "^18.2.0"
   }
 }
