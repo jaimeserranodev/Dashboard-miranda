@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
-import Header from '../../components/Dashboard/Header/Header'
+import Header from '../../components/Dashboard/Header/Header.tsx'
 import Customers from '../../components/Dashboard/customers/customers';
 import ContactList from './ContactList';
 import contactListData from "./contactListData.json"
