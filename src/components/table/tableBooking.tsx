@@ -1,111 +1,43 @@
 import React, { useState } from 'react';
+import  {BookingType} from "../../types/features";
+import  Pagination  from '../pagination/Pagination';
 import "./styles/table.css";
-import { useSelector, useDispatch } from 'react-redux';
-
-import { RootState } from '../../store/store';
-
-interface Booking {
-    id: number;
-    guest: string;
-    image: string;
-    date: string;
-    checkIn: string;
-    hourIn: string;
-    checkOut: string;
-    request: string;
-    roomTipe: string;
-    status: string;
-}
-type SortByValue = 'guest' | 'date' | 'checkIn' | 'checkOut' | 'request' | 'roomType' | 'status';
-
-interface TableProps {
-    bookings: Booking[];
-}
-
-interface PaginationProps {
-    currentPage: number;
-    totalPages: number;
-    goToPage: (page: number) => void;
-    goToNextPage: () => void;
-    goToPreviousPage: () => void;
-}
-
-
-
-//-----------PAGINATION---------------------//
-
-    const Pagination: React.FC<PaginationProps> = ({ 
-        currentPage, 
-        totalPages, 
-        goToPage, 
-        goToNextPage, 
-        goToPreviousPage }) => {
-
-        const visiblePageNumbers = [];
-        const maxVisiblePages = 4;
-        const startPage = Math.max(currentPage - 1, 1);
-        const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
-
-        for (let i = startPage; i <= endPage; i++) {
-            visiblePageNumbers.push(i);
-        }
-
-    return (
-        <div className='pagination'>
-            <button className='btn' onClick={goToPreviousPage} disabled={currentPage === 1}>Prev</button>
-            <div className="page-buttons">
-                {visiblePageNumbers.map((pageNumber) => (
-                <button
-                    key={pageNumber}
-                    className={`page-button ${pageNumber === currentPage ? 'active' : ''}`}
-                    onClick={() => goToPage(pageNumber)}
-                >
-                    {pageNumber}
-                </button>
-                ))}
-            </div>
-                <button className='btn' onClick={goToNextPage} disabled={currentPage === totalPages}>Next</button>
-            </div>
-            );
-        };
-
 
     //-------------------------- TABLA-----------------------//
-
+    interface TableProps {
+        bookings: BookingType[];
+    }
     const Table: React.FC<TableProps> = ({ bookings }) => {
-        const dispatch = useDispatch();
+        
+        // LOGICA PARA PAGINACION //
         const [currentPage, setCurrentPage] = useState<number>(1);
         const bookingsPerPage = 8;
-        
         const totalPages = Math.ceil(bookings.length / bookingsPerPage);
     
-        
+        const goToPage = (page: number) => {
+            setCurrentPage(page);
+        };
 
-    
-    const goToPage = (page: number) => {
-        setCurrentPage(page);
-    };
+        const goToNextPage = () => {
+            if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            }
+        };
 
-    const goToNextPage = () => {
-        if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-        }
-    };
+        const goToPreviousPage = () => {
+            if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            }
+        };
 
-    const goToPreviousPage = () => {
-        if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const indexOfLastBooking = currentPage * bookingsPerPage;
-    const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
-    const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
-
+        const indexOfLastBooking = currentPage * bookingsPerPage;
+        const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
+        const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
+        // LOGICA PARA PAGINACION //
 
     return (
         <div>
-        <table className='table'>
+        <table className='table'  >
         <tr className='borderTabla'>
                 <th className='tableCell'>Guest</th>
                 <th className='tableCell'>Order Date</th>

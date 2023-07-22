@@ -14,7 +14,7 @@ export interface User {
     password: string | undefined;
 }
 
-export interface Booking {
+export interface BookingType {
     id: number;
     guest: string | undefined;
     image: string;
@@ -24,7 +24,7 @@ export interface Booking {
     checkOut: string;
     request: string;
     roomTipe: string;
-    status: 'Check In' | 'In Progress' | 'Check Out';
+    status: string;
     }
 
 

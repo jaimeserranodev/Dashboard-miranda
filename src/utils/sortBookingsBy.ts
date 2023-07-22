@@ -1,4 +1,4 @@
-    import { Booking } from '../types/features';
+    import { BookingType } from '../types/features';
 
     const parseDate = (dateString: string): Date => {
     const [month, day, year, time] = dateString.split(" ");
@@ -23,7 +23,7 @@
     return monthsMap[month];
     };
 
-    const sortBookingsBy = (orderBy: string, data: Booking[]) => {
+    const sortBookingsBy = (orderBy: string, data: BookingType[]) => {
     if (orderBy === 'guest') {
         return data.sort((a, b) => {
         if (a.guest && b.guest) {
@@ -41,7 +41,7 @@
         if (dateA > dateB) return 1;
         return 0;
         });
-    } else if (orderBy === 'check_in') {
+    } else if (orderBy === 'checkIn') {
         return data.sort((a, b) => {
         const dateA = parseDate(a.checkIn);
         const dateB = parseDate(b.checkIn);
@@ -50,7 +50,7 @@
         if (dateA > dateB) return 1;
         return 0;
         });
-    } else if (orderBy === 'check_out') {
+    } else if (orderBy === 'checkut') {
         return data.sort((a, b) => {
         const dateA = parseDate(a.checkOut);
         const dateB = parseDate(b.checkOut);
