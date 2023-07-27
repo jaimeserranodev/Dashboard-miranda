@@ -7,34 +7,115 @@
     text-align: left;
     border-collapse: collapse;
     .RoomsList{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    margin-top: 3%;
-    margin-left: 20px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3%;
+        margin-left: 20px;
     .menu{
+        padding-right: 50px;
         display: flex;
         list-style: none;
         border: none;
+        
         .menu_button{
+            margin-right: 50px;
             border: none;
             color: #6E6E6E;
-            width: 250px;
             background-color: #F8F8F8;
             border-bottom: 3px solid #F5F5F5;
             text-align: right;
             font-family: "Poppins";
             font-size: medium;
             text-align: center;
-            padding-bottom: 25px;
         }
         :hover{
             color: #135846;
             cursor: pointer;
             border-bottom:4px solid #135846;
-            font-size: large;
+            font-size: medium;
             font-weight: 500;
         }
     }
+    .d-flex-center{
+        .newRoom{
+            background-color: #135846;
+            color: #fff;
+            width: 120px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+            }
+            .newRoom:hover {
+                background-color: #45a049;
+            }
+            .selectRoom{
+                border-color: #135846;
+                font-family: "Poppins";
+                border-radius: 20px;
+                border: 1px solid ;
+                color: #135846;
+                height: 30px;
+                
+                .list__top__select__text{
+                    color: #135846;
+                    cursor: pointer;
+                    
+                }
+            }
+            .selectRoom:hover{
+                cursor: pointer;
+            }
+        }
+    }
 }
+.table{
+    
+    .tableCell {
+        display: flex;
+        align-items: center;
+    }
+    .tableRow:hover{
+            cursor: pointer;
+            border: 1px solid #575757;
+            box-shadow: 30px 30px 30px #0000001A;
+            height: 80px;
+            border-radius: 20px;
+    }
+    
+    tr{
+        height: 80px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-family: 'poppins';
+        background-color: #fff;
+    }
+    .list__table__pagination{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .list__table__pagination__button{
+            background-color: #135846;
+            color: #fff;
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+            
+        }:hover{
+            background-color: #45a049;
+            }
+    }
 }

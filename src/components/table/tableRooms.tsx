@@ -44,85 +44,114 @@ const RoomList: React.FC<TableProps> = () => {
     e.stopPropagation();
   }
 
+  const getRandomOfferPercentage = () => {
+    const randomPercentage = Math.floor(Math.random() * 21) * 5; // Números entre 0 y 20, luego se multiplica por 5 para obtener múltiplos de 5.
+    return randomPercentage;
+  };
+
+
+  // ----------------------PAGINATION-------------------------//
+
+  const itemsPerPage = 10;
+
+  const handlePreviousPage = () => {
+    if (pagination > 1) {
+      setPagination((prev) => prev - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (pagination < Math.ceil(rooms.length / itemsPerPage)) {
+      setPagination((prev) => prev + 1);
+    }
+  };
+
+
+  
   return (
     <div className='table'>
       <div className='RoomsList'>
         <ul className='menu'>
-          <li className={`menu_button ${changeBy !== 'available' && changeBy !== 'booked' ? 'menu_button' : ''}`} 
+          <li
+            className={`menu_button ${changeBy !== 'available' && changeBy !== 'booked' ? 'menu_button' : ''}`}
             onClick={() => setChangeBy('all')}
           >All Rooms</li>
-          <li className={`menu_button ${changeBy === 'available' ? 'menu_button' : ''}`} 
+          <li
+            className={`menu_button ${changeBy === 'available' ? 'menu_button' : ''}`}
             onClick={() => setChangeBy('available')}
           >Available</li>
-          <li className={`menu_button ${changeBy === 'booked' ? 'menu_button' : ''}`} 
+          <li
+            className={`menu_button ${changeBy === 'booked' ? 'menu_button' : ''}`}
             onClick={() => setChangeBy('booked')}
           >Booked</li>
         </ul>
         <div className='d-flex-center'>
-          <button className='list__top__button' onClick={() => navigate('/rooms/new')}>+ New Room</button>
-          <select className='list__top__select' value={changeBy} onChange={(e) => setChangeBy(e.target.value)}>
+          <button className='newRoom' onClick={() => navigate('/rooms/new')}>+ New Room</button>
+          <select className='selectRoom' value={changeBy} onChange={(e) => setChangeBy(e.target.value)}>
             <option className='list__top__select__text' value="number">Room number</option>
             <option className='list__top__select__text' value="status">Status</option>
             <option className='list__top__select__text' value="price">Price</option>
           </select>
         </div>
       </div>
-      <div className='list__table'>
-        <div className='list__table__row list__table__row--first'>
-          <p className='list__table__row__item weight-700'>Photo</p>
-          <p className='list__table__row__item weight-700'>Room Name</p>
-          <p className='list__table__row__item weight-700'>Room Type</p>
-          <p className='list__table__row__item weight-700'>Amenities</p>
-          <p className='list__table__row__item weight-700' style={{ justifyContent: 'center' }}>Price</p>
-          <p className='list__table__row__item weight-700' style={{ justifyContent: 'center' }}>Offer</p>
-          <p className='list__table__row__item weight-700'>Status</p>
-        </div>
-        <ul style={{ listStyle: 'none' }}>
-          { status === 'pending' && <p className='list__table__nothing'>Loading...</p> }
-          { 
-            showRooms.length === 0 && <p className='list__table__nothing'>Nothing to show here</p>
-          }
-          {showRooms.map((room) => {
-            return (
-              <div key={room.id} onClick={() => navigate(`/rooms/${room.id}`)} className='list__table__row'>
-                <div className='list__table__row__item'>
-                  <img className='rooms__photo' src={room.photo} alt="" />
-                </div>
-                <div className='list__table__row__item rooms__name'>
-                  <p className='list__table__row__item__id'>#{room.id.toString().padStart(2, '0')}</p>
-                  <p className='weight-500'>{room.name}</p>
-                </div>
-                <p className='list__table__row__item weight-500'>{room.bed_type}</p>
-                <p className='list__table__row__item'>
-                  {room.amenities.slice(0, -1).map(amenity => amenity + ', ')}
-                  {room.amenities.slice(-1)[0]}
-                </p>
-                <p className='list__table__row__item weight-500 rooms__price'>
-                  {room.rate}$
-                  <span className='rooms__night'>/night
-                  </span>
-                </p>
-                <p className='list__table__row__item weight-500 rooms__offer'>
-                  {room.offer || Math.floor(room.rate / 1.5)}$
-                  <span className='rooms__night'>/night
-                  </span>
-                </p>
-                <div className='list__table__row__item'>
-                  <p className={`rooms__status 
-                    ${room.status === 'Available' ? 'rooms__status--green' : 'rooms__status--red'}`}
-                  >{room.status}</p>
-                </div>
+      <table className='table'>
+        <thead>
+          <tr className='borderTabla'>
+            <th className='tableCell'>Photo</th>
+            <th className='tableCell'>Room Name</th>
+            <th className='tableCell'>Room Type</th>
+            <th className='tableCell'>Amenities</th>
+            <th className='tableCell'>Price</th>
+            <th className='tableCell'>Offer</th>
+            <th className='tableCell'>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {status === 'pending' && <p className='list__table__nothing'>Loading...</p>}
+          {showRooms.length === 0 && <p className='list__table__nothing'>Nothing to show here</p>}
+          {showRooms.map((room) => (
+            <tr key={room.id} onClick={() => navigate(`/rooms/${room.id}`)} className='tableRow'>
+              
+              <td className='tableCell' >
                 
-              </div> 
-            )})}
-        </ul>
-      </div>
+                  {room.id.toString().padStart(2, '0')}
+                  <img src={room.photo} alt="" className='image' />
+                
+              </td>
+              <td className='tableCell'>{room.name}</td>
+              <td className='tableCell'>{room.bed_type}</td>
+              <td className='tableCell'>{room.amenities.slice(0, -1).map(amenity => amenity + ', ')}
+                {room.amenities.slice(-1)[0]}</td>
+              <td className='tableCell'>{room.rate}€</td>
+              <td className='tableCell'>{getRandomOfferPercentage()}%{/* Limitar el porcentaje al 100% */}</td>
+              <td className={`statusRoom ${room.status}`}>{room.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <div className='list__bottom'>
         <p className='list__bottom__text'>Showing {showRooms.length} of {roomList.length} Data</p>
-        
       </div>
+
+      
+        <div className='list__table__pagination'>
+          <button
+            className='list__table__pagination__button'
+            onClick={handlePreviousPage}
+            disabled={pagination === 1}
+          >
+            Previous
+          </button>
+          <button
+            className='list__table__pagination__button'
+            onClick={handleNextPage}
+            disabled={pagination >= Math.ceil(rooms.length / itemsPerPage)}
+          >
+            Next
+          </button>
+        </div>
     </div>
-  )
+  );
 }
 
-export default RoomList
+export default RoomList;

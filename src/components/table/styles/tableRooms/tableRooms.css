@@ -9,32 +9,105 @@
 }
 .table .RoomsList {
   display: flex;
-  justify-content: space-around;
-  flex-direction: row;
+  justify-content: space-between;
   margin-top: 3%;
   margin-left: 20px;
 }
 .table .RoomsList .menu {
+  padding-right: 50px;
   display: flex;
   list-style: none;
   border: none;
 }
 .table .RoomsList .menu .menu_button {
+  margin-right: 50px;
   border: none;
   color: #6E6E6E;
-  width: 250px;
   background-color: #F8F8F8;
   border-bottom: 3px solid #F5F5F5;
   text-align: right;
   font-family: "Poppins";
   font-size: medium;
   text-align: center;
-  padding-bottom: 25px;
 }
 .table .RoomsList .menu :hover {
   color: #135846;
   cursor: pointer;
   border-bottom: 4px solid #135846;
-  font-size: large;
+  font-size: medium;
   font-weight: 500;
+}
+.table .RoomsList .d-flex-center .newRoom {
+  background-color: #135846;
+  color: #fff;
+  width: 120px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+.table .RoomsList .d-flex-center .newRoom:hover {
+  background-color: #45a049;
+}
+.table .RoomsList .d-flex-center .selectRoom {
+  border-color: #135846;
+  font-family: "Poppins";
+  border-radius: 20px;
+  border: 1px solid;
+  color: #135846;
+  height: 30px;
+}
+.table .RoomsList .d-flex-center .selectRoom .list__top__select__text {
+  color: #135846;
+  cursor: pointer;
+}
+.table .RoomsList .d-flex-center .selectRoom:hover {
+  cursor: pointer;
+}
+
+.table .tableCell {
+  display: flex;
+  align-items: center;
+}
+.table .tableRow:hover {
+  cursor: pointer;
+  border: 1px solid #575757;
+  box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.1019607843);
+  height: 80px;
+  border-radius: 20px;
+}
+.table tr {
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "poppins";
+  background-color: #fff;
+}
+.table .list__table__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.table .list__table__pagination .list__table__pagination__button {
+  background-color: #135846;
+  color: #fff;
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+.table .list__table__pagination :hover {
+  background-color: #45a049;
 }/*# sourceMappingURL=tableRooms.css.map */
