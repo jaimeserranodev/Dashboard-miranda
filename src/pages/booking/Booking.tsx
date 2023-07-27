@@ -1,19 +1,26 @@
-import  { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
 import Header from '../../components/Dashboard/Header/Header'
 import Table from '../../components/table/tableBooking'
 import BookingList from './BookingList';
 import BookingData from "./BookingData.json"
-import { store } from '../../store/store';
-import { Provider } from 'react-redux';
+import { store, AppDispatch, RootState } from '../../store/store';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { getBookingList } from 'src/features/booking/BookingThunks';
 
 function Booking() {
 
     const [showSidebar, setShowSidebar] = useState(true);
-
+    const dispatch = useDispatch<AppDispatch>();
+    const { data } = useSelector((state: RootState) => state.booking);
+    
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar);
     };
+    useEffect(() => {
+        dispatch(getBookingList());
+    }, [dispatch])
+    
     
     return (
         <Provider store={store}>
@@ -22,7 +29,7 @@ function Booking() {
                 <div className="homeContainer">
                     <Header  toggleSidebar={toggleSidebar} showSidebar={showSidebar}/>
                     <BookingList />
-                    <Table bookings={BookingData}/>
+                    <Table bookings={data}/>
                 </div>
             </div>
         </Provider>

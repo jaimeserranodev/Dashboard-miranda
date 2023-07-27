@@ -1,4 +1,4 @@
-export type Status = 'idle' | 'fulfilled' | 'pending' | 'rejected';
+export type Status = 'not-loaded' | 'loaded' | 'pending' | 'rejected';
 
 export interface User {
     id: number;
@@ -29,6 +29,18 @@ export interface BookingType {
 
 
 export interface Room {
+    id: number;
+    name: string | undefined;
+    bed_type: string | undefined;
+    photo: string | undefined;
+    description?: string | undefined;
+    amenities: string[];
+    rate: number;
+    offer: number;
+    status: string;
+}
+
+export interface RoomType {
     id: number;
     name: string | undefined;
     bed_type: string | undefined;

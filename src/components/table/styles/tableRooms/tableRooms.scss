@@ -1,0 +1,40 @@
+.table{
+    width: 90%;
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 20%;
+    border-radius: 20%;
+    text-align: left;
+    border-collapse: collapse;
+    .RoomsList{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    margin-top: 3%;
+    margin-left: 20px;
+    .menu{
+        display: flex;
+        list-style: none;
+        border: none;
+        .menu_button{
+            border: none;
+            color: #6E6E6E;
+            width: 250px;
+            background-color: #F8F8F8;
+            border-bottom: 3px solid #F5F5F5;
+            text-align: right;
+            font-family: "Poppins";
+            font-size: medium;
+            text-align: center;
+            padding-bottom: 25px;
+        }
+        :hover{
+            color: #135846;
+            cursor: pointer;
+            border-bottom:4px solid #135846;
+            font-size: large;
+            font-weight: 500;
+        }
+    }
+}
+}

@@ -29,7 +29,8 @@ import "./styles/table.css";
             setCurrentPage(currentPage - 1);
             }
         };
-
+        console.log({ bookings});
+        
         const indexOfLastBooking = currentPage * bookingsPerPage;
         const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
         const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);

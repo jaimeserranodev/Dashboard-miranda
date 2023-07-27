@@ -2,47 +2,84 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getBookingList } from "./BookingThunks";
 import { BookingType, Status } from "src/types/features";
 
-
 interface BookingState {
     data: BookingType[];
     status: Status;
     error: Error | undefined;
-    } 
+}
 
-    const initialState = {
-        data: [],
-        status: 'idle',
-        error: undefined
-        } as BookingState;
+const initialState = {
+    data: [],
+    status: "not-loaded",
+    error: undefined,
+    } as BookingState;
 
 export const bookingSlice = createSlice({
-    name: 'booking',
+    name: "booking",
     initialState,
     reducers: {
+        //Cargar data / peticion - api
+        addBooks: (state: BookingState, action: PayloadAction<BookingType[]>) => {
+        console.log('addBooks', action.payload);  
+        state.data = action.payload;
+        state.status = "loaded";
+        state.data.sort(({ date: dateA }, { date: dateB }) => {
+            const convertedDateA = convertToDate(dateA);
+            const convertedDateB = convertToDate(dateB);
+            return convertedDateA.getTime() - convertedDateB.getTime();
+        });
+        },
+        sortByOrderDate: (
+        state: BookingState,
+        action: PayloadAction<BookingType[]>
+        ) => {
+        state.data = [...state.data].sort(({ date: dateA }, { date: dateB }) => {
+            const convertedDateA = convertToDate(dateA);
+            const convertedDateB = convertToDate(dateB);
+            return convertedDateA.getTime() - convertedDateB.getTime();
+        });
+        },
         //make a reducer for each action
-        sortByGuest: (state, action: PayloadAction<BookingType[]>) => {
-        state.data = action.payload.sort((a, b) => a.guest?.localeCompare(b.guest || "") || 0);
+        sortByGuest: (state: any, action: PayloadAction<BookingType[]>) => {
+            state.data = [...state.data].sort((a, b) =>
+            a.guest.localeCompare(b.guest)
+        );
         },
-        sortByCheckIn: (state, action: PayloadAction<BookingType[]>) => {
-        state.data = action.payload.sort((a, b) => new Date(a.checkIn).getTime() - new Date(b.checkIn).getTime());
+        sortByCheckIn: (state: any, action: PayloadAction<BookingType[]>) => {
+        console.log('check-in', action.payload);  
+            
+            state.data = [...state.data].sort((a, b) => {
+            const convertedDateA = convertToDate(a.checkIn);
+            const convertedDateB = convertToDate(b.checkIn);
+            return convertedDateA.getTime() - convertedDateB.getTime();
+        });
         },
-        sortByCheckOut: (state, action: PayloadAction<BookingType[]>) => {
-        state.data = action.payload.sort((a, b) => new Date(a.checkOut).getTime() - new Date(b.checkOut).getTime());
+        sortByCheckOut: (state: any, action: PayloadAction<BookingType[]>) => {
+        state.data = [...state.data].sort((a, b) => {
+            const convertedDateA = convertToDate(a.checkOut);
+            const convertedDateB = convertToDate(b.checkOut);
+            return convertedDateA.getTime() - convertedDateB.getTime();
+        });
         },
-        sortByOrderDate: (state, action: PayloadAction<BookingType[]>) => {
-        state.data = action.payload.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        sortByStatus: (state: any, action: PayloadAction<BookingType[]>) => {
+        state.data = action.payload.sort(
+            (a: any, b: any) => a.status?.localeCompare(b.status || "") || 0
+        );
         },
-        sortByStatus: (state, action: PayloadAction<BookingType[]>) => {
-        state.data = action.payload.sort((a, b) => a.status?.localeCompare(b.status || "") || 0);
-        },
-
-        
-        
     },
-    extraReducers: (builder) => {
-        builder
-        
-    }
-})
-    export const { sortByGuest, sortByCheckIn, sortByCheckOut, sortByOrderDate, sortByStatus } = bookingSlice.actions
-    export const bookingReducer = bookingSlice.reducer
+});
+
+const convertToDate = (dateString: string): Date => {
+    const [day, month, year] = dateString.split(".");
+    return new Date(`${year}-${month}-${day}`);
+};
+
+export const {
+    addBooks,
+    sortByGuest,
+    sortByCheckIn,
+    sortByCheckOut,
+    sortByOrderDate,
+    sortByStatus,
+    } = bookingSlice.actions;
+export const bookingReducer = bookingSlice.reducer;

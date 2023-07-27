@@ -1,228 +1,128 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import {  useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { sortByStatus, sortByPrice, addRoom} from "../../features/roomSlice";
+import { getRoomList, deleteRoomById } from '../../features/rooms/roomThunks';
+import { changeRoomsBy } from '../../utils/changeRoomsBy';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Room } from '../../types/features';
+import "../../components/table/styles/table.css";
 import {RootState} from '../../store/store';
-import "./styles/table.css";
 
-//-----------PAGINATION---------------------//
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  goToPage: (page: number) => void;
-  goToNextPage: () => void;
-  goToPreviousPage: () => void;
-}
-interface Room {
-  photo: string;
-  roomNumber: string;
-  id: number;
-  roomType: string;
-  Amenities: string;
-  price: string;
-  offerPrice: number;
-  status: string;
-}
+import "./styles/tableRooms/tableRooms.css"
 
-
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, goToPage, goToNextPage, goToPreviousPage }) => {
-  const visiblePageNumbers: number[] = [];
-
-  const maxVisiblePages = 4;
-  const startPage = Math.max(currentPage - 1, 1);
-  const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
-
-  for (let i = startPage; i <= endPage; i++) {
-    visiblePageNumbers.push(i);
-  }
-
-  return (
-    <div className='pagination'>
-      <button className='btn' onClick={goToPreviousPage} disabled={currentPage === 1}>Prev</button>
-      <div className="page-buttons">
-        {visiblePageNumbers.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            className={`page-button ${pageNumber === currentPage ? 'active' : ''}`}
-            onClick={() => goToPage(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
-      </div>
-      <button className='btn' onClick={goToNextPage} disabled={currentPage === totalPages}>Next</button>
-    </div>
-  );
-};
-
-//-------------------------- TABLE ROOMS -----------------------//
 interface TableProps {
   rooms: Room[];
 }
 
+const RoomList: React.FC<TableProps> = () => {
+  const { data, status } = useAppSelector(state => state.rooms);
+  const { roomList } = data;
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const [showRooms, setShowRooms] = useState<Room[]>([]);
+  const [pagination, setPagination] = useState(1);
+  const [changeBy, setChangeBy] = useState('all');
 
-const TableRooms: React.FC<TableProps> = ({ rooms }) => {
-  const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const roomsPerPage = 8;
-  
-const sortByValue = useSelector((state: RootState) => state.rooms.sortBy);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const totalPages = Math.ceil(rooms.length / roomsPerPage);
-
-
-  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null); // Estado para almacenar la fila seleccionada
-//   const [draggedItem, setDraggedItem] = useState(null);
-
-
-const handleSortBy = (value: 'status' | 'price') => {
-    if (value === 'status') {
-      dispatch(sortByStatus());
-    } else if (value === 'price') {
-      dispatch(sortByPrice());
+  useEffect(() => {
+    if (status === 'not-loaded') {
+      dispatch(getRoomList());
     }
-  };
+    setRooms(changeRoomsBy(changeBy, [...roomList]));
+    setPagination(1);
+    // eslint-disable-next-line
+  }, [roomList, changeBy])
 
-  const goToPage = (page: number) => {
-    setCurrentPage(page);
-  };
+  useEffect(() => {
+    let index = pagination === 1 ? 0 : (pagination-1)*10;
+    setShowRooms(rooms.slice(index, index+10));
+  }, [pagination, rooms])
 
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const indexOfLastRoom = currentPage * roomsPerPage;
-  const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
-
-
-//----------------- DRAP AND DROP --------------------------------//
-  
-//   const handleDragStart = (event, room) => {
-//     setDraggedItem(room);
-//   };
-
-//   const handleDragEnter = (event, room) => {
-//     const updatedRooms = [...rooms];
-//     const draggedItem = updatedRooms.find((item) => item === draggedItem);
-//     updatedRooms.splice(updatedRooms.indexOf(draggedItem), 1);
-//     updatedRooms.unshift(draggedItem);
-//     dispatch(addRoom(updatedRooms)); // Utiliza la acción addRoom para agregar la habitación en la posición deseada
-//   };
-
-//   const handleDragOver = (event) => {
-//     event.preventDefault();
-//   };
-
-//   const handleDragEnd = () => {
-//     setDraggedItem(null);
-//   };
-
-
-
-  const handleRowClick = (room: Room) => {
-    setSelectedRoom(room);
-  };
-
-  const closeModal = () => {
-    setSelectedRoom(null);
-  };
-
-  if (selectedRoom) {
-    return (
-
-      //------------------------ MODAL ROOM DETAILS------------//
-      <div className='roomDetails'>
-        <div className="left">
-          <h2>Room Type: {selectedRoom.roomType}</h2>
-          <p>Room Number: <br /><span>{selectedRoom.roomNumber}</span></p>
-          <span>Description: <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit doloribus ducimus enim animi eum modi maiores. Debitis numquam quisquam nobis!</p></span>
-          <div className='roomOffer'>
-            <div className="price">
-              <span>Prices</span>
-              <p>Price: {selectedRoom.price}</p>
-              <p>Discount: {selectedRoom.offerPrice}%</p>
-            </div>
-            <div className="offer">
-              <label htmlFor="offer">
-                <span>Offer:</span>
-                <input type="checkbox" id="offer" />
-                  
-              </label>
-            </div>
-          </div>
-          <span>Cancellation:<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates architecto, alias perferendis vitae saepe omnis quia nemo quam autem temporibus.</p></span>
-          <p>Amenities:<p className='amenities'>{selectedRoom.Amenities}</p> </p>
-          
-          {/* Mostrar los demás datos de la habitación */}
-        <button onClick={closeModal}>Cerrar</button>
-        </div>
-        <div className="right">
-          <img className='img-roomDetail' src="/room1.jpg" alt="" />
-        </div>
-          
-      </div>
-    );
+  const handleDelete = (e: React.MouseEvent<HTMLElement>, roomId: number) => {
+    dispatch(deleteRoomById(roomId));
+    e.stopPropagation();
   }
 
   return (
-    <div>
-      <table className='table'>
-        <thead>
-        <tr className='borderTabla'>
-          <th className='tableCell'>Photo</th>
-          <th className='tableCell'>Room Number</th>
-          <th className='tableCell'>ID</th>
-          <th className='tableCell'>Room Type</th>
-          <th className='tableCell'>Amenities</th>
-          <th className='tableCell'>Price</th>
-          <th className='tableCell'>Offer Price</th>
-          <th className='tableCell'>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        {currentRooms.map((room, index) => (
-          <tr
-          className='tableRow'
-          key={index}
-          onClick={() => handleRowClick(room)} // Manejar el clic en la fila
+    <div className='table'>
+      <div className='RoomsList'>
+        <ul className='menu'>
+          <li className={`menu_button ${changeBy !== 'available' && changeBy !== 'booked' ? 'menu_button' : ''}`} 
+            onClick={() => setChangeBy('all')}
+          >All Rooms</li>
+          <li className={`menu_button ${changeBy === 'available' ? 'menu_button' : ''}`} 
+            onClick={() => setChangeBy('available')}
+          >Available</li>
+          <li className={`menu_button ${changeBy === 'booked' ? 'menu_button' : ''}`} 
+            onClick={() => setChangeBy('booked')}
+          >Booked</li>
+        </ul>
+        <div className='d-flex-center'>
+          <button className='list__top__button' onClick={() => navigate('/rooms/new')}>+ New Room</button>
+          <select className='list__top__select' value={changeBy} onChange={(e) => setChangeBy(e.target.value)}>
+            <option className='list__top__select__text' value="number">Room number</option>
+            <option className='list__top__select__text' value="status">Status</option>
+            <option className='list__top__select__text' value="price">Price</option>
+          </select>
+        </div>
+      </div>
+      <div className='list__table'>
+        <div className='list__table__row list__table__row--first'>
+          <p className='list__table__row__item weight-700'>Photo</p>
+          <p className='list__table__row__item weight-700'>Room Name</p>
+          <p className='list__table__row__item weight-700'>Room Type</p>
+          <p className='list__table__row__item weight-700'>Amenities</p>
+          <p className='list__table__row__item weight-700' style={{ justifyContent: 'center' }}>Price</p>
+          <p className='list__table__row__item weight-700' style={{ justifyContent: 'center' }}>Offer</p>
+          <p className='list__table__row__item weight-700'>Status</p>
+        </div>
+        <ul style={{ listStyle: 'none' }}>
+          { status === 'pending' && <p className='list__table__nothing'>Loading...</p> }
+          { 
+            showRooms.length === 0 && <p className='list__table__nothing'>Nothing to show here</p>
+          }
+          {showRooms.map((room) => {
+            return (
+              <div key={room.id} onClick={() => navigate(`/rooms/${room.id}`)} className='list__table__row'>
+                <div className='list__table__row__item'>
+                  <img className='rooms__photo' src={room.photo} alt="" />
+                </div>
+                <div className='list__table__row__item rooms__name'>
+                  <p className='list__table__row__item__id'>#{room.id.toString().padStart(2, '0')}</p>
+                  <p className='weight-500'>{room.name}</p>
+                </div>
+                <p className='list__table__row__item weight-500'>{room.bed_type}</p>
+                <p className='list__table__row__item'>
+                  {room.amenities.slice(0, -1).map(amenity => amenity + ', ')}
+                  {room.amenities.slice(-1)[0]}
+                </p>
+                <p className='list__table__row__item weight-500 rooms__price'>
+                  {room.rate}$
+                  <span className='rooms__night'>/night
+                  </span>
+                </p>
+                <p className='list__table__row__item weight-500 rooms__offer'>
+                  {room.offer || Math.floor(room.rate / 1.5)}$
+                  <span className='rooms__night'>/night
+                  </span>
+                </p>
+                <div className='list__table__row__item'>
+                  <p className={`rooms__status 
+                    ${room.status === 'Available' ? 'rooms__status--green' : 'rooms__status--red'}`}
+                  >{room.status}</p>
+                </div>
+                
+              </div> 
+            )})}
+        </ul>
+      </div>
+      <div className='list__bottom'>
+        <p className='list__bottom__text'>Showing {showRooms.length} of {roomList.length} Data</p>
         
-            // draggable
-            // onDragStart={(event) => handleDragStart(event, room)}
-            // onDragEnter={(event) => handleDragEnter(event, room)}
-            // onDragOver={handleDragOver}
-            // onDragEnd={handleDragEnd}
-        >
-            <td className='tableCellPhoto'>
-              <img src={room.photo} alt="" className='image' />
-            </td>
-            <td className='tableCellroomNumber'>{room.roomNumber}</td>
-            <td className='tableCell'>{room.id}</td>
-            <td className='tableCell'>{room.roomType}</td>
-            <td className='tableCell'>{room.Amenities}</td>
-            <td className='tableCell'>{room.price}</td>
-            <td className='tableCell'>{room.offerPrice}%</td>
-            <td className={`statusRoom ${room.status}`}>{room.status}</td>
-          </tr>
-        ))}
-        </tbody>
-      </table>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        goToPage={goToPage}
-        goToNextPage={goToNextPage}
-        goToPreviousPage={goToPreviousPage}
-      />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default TableRooms;
+export default RoomList

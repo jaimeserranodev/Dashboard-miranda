@@ -1,19 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import BookingData from "../../pages/booking/BookingData.json";
 import { BookingType } from "../../types/features";
-import { RootState } from "../../store/store";
+import { addBooks } from "./BookingSlice";
+// import { RootState } from "../../store/store";
 
 export const getBookingList = createAsyncThunk<BookingType[], void, { rejectValue: Error }>(
     'booking/getBookingListStatus',
-    async(_, { rejectWithValue }) => {
+    async(_, { rejectWithValue, dispatch }) => {
         try {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-            resolve(BookingData as BookingType[]);
-            }, 200);
-        });
+            return new Promise<BookingType[]>((resolve) => {
+                setTimeout(() => {
+                    dispatch(addBooks(BookingData));
+                    resolve(BookingData);
+                }, 2000); // Tiempo en milisegundos (2 segundos)
+            });
         } catch (error) {
-            return rejectWithValue(error as Error);
+            return rejectWithValue(new Error("Ha ocurrido un error al cargar los datos."));
         }
     }
-)
+);

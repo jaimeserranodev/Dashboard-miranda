@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addRoom } from "../../features/roomSlice";
+// import { addRoom } from "../../features/rooms/roomSlice";
 import { RootState } from '../../store/store';
 import "./styles/rooms.css"
 
@@ -58,16 +58,16 @@ const NewRoom: React.FC<NewRoomProps> = () => {
         cancellation,
         amenities: selectedAmenities,
     };
-    dispatch(addRoom(newRoom));
-        setPhotos([]);
-        setRoomType('');
-        setRoomNumber('');
-        setDescription('');
-        setOffer(false);
-        setPrice('');
-        setDiscount('');
-        setCancellation('');
-        setSelectedAmenities([]);
+    // dispatch(addRoom(newRoom));
+    //     setPhotos([]);
+    //     setRoomType('');
+    //     setRoomNumber('');
+    //     setDescription('');
+    //     setOffer(false);
+    //     setPrice('');
+    //     setDiscount('');
+    //     setCancellation('');
+    //     setSelectedAmenities([]);
 
     };
     return (
