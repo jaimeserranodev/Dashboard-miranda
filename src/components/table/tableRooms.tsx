@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {  useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRoomList, deleteRoomById } from '../../features/rooms/roomThunks';
 import { changeRoomsBy } from '../../utils/changeRoomsBy';
@@ -86,7 +86,7 @@ const RoomList: React.FC<TableProps> = () => {
           >Booked</li>
         </ul>
         <div className='d-flex-center'>
-          <button className='newRoom' onClick={() => navigate('/rooms/new')}>+ New Room</button>
+        <Link to='/rooms/create' className='list__top__new-room'>New Room +</Link>
           <select className='selectRoom' value={changeBy} onChange={(e) => setChangeBy(e.target.value)}>
             <option className='list__top__select__text' value="number">Room number</option>
             <option className='list__top__select__text' value="status">Status</option>

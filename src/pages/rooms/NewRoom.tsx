@@ -1,215 +1,119 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useRef } from 'react'
+import { createRoom } from '../../features/rooms/roomThunks';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
+import { Room } from '../../types/features';
+import "./styles/roomStyles/NewRoom/NewRoom.css"
 
-// import { addRoom } from "../../features/rooms/roomSlice";
-import { RootState } from '../../store/store';
-import "./styles/rooms.css"
-
-
-interface NewRoomProps {
-    handlePhotoChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    selectedPhotosCount: number;
-}
-
-const NewRoom: React.FC<NewRoomProps> = () => {
-    const dispatch = useDispatch();
-    const [photos, setPhotos] = useState<File[]>([]);
-    const [photoUrls, setPhotoUrls] = useState<string[]>([]);
-    const [roomType, setRoomType] = useState('');
-    const [roomNumber, setRoomNumber] = useState('');
-    const [description, setDescription] = useState('');
+const NewRoom = () => {
     const [offer, setOffer] = useState(false);
-    const [price, setPrice] = useState('');
-    const [discount, setDiscount] = useState('');
-    const [cancellation, setCancellation] = useState('');
-    const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+    const [amenities, setAmenities] = useState(['AC', 'Shower', 'LED TV', 'Wifi']);
+    const formRef = useRef(null);
 
-    const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const selectedPhotos = Array.from(e.target.files!).slice(0, 5); // Limitando a un máximo de 5 fotos
-        setPhotos(selectedPhotos);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
-    const urls = Array.from(selectedPhotos).map((photo) =>
-        URL.createObjectURL(photo)
-    );
-    setPhotoUrls(urls);
-    };
-
-    const handleAmenityChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        if (checked) {
-            setSelectedAmenities((prevAmenities) => [...prevAmenities, value]);
+    const handleAmenities = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) {
+        setAmenities((prevState) => [...prevState, e.target.name]);
         } else {
-            setSelectedAmenities((prevAmenities) =>
-            prevAmenities.filter((amenity) => amenity !== value)
-            );
+        setAmenities((prevState) => prevState.filter((amenity) => amenity !== e.target.name));
         }
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    const newRoom = {
-        photos,
-        roomType,
-        roomNumber,
-        description,
-        offer,
-        price,
-        discount,
-        cancellation,
-        amenities: selectedAmenities,
-    };
-    // dispatch(addRoom(newRoom));
-    //     setPhotos([]);
-    //     setRoomType('');
-    //     setRoomNumber('');
-    //     setDescription('');
-    //     setOffer(false);
-    //     setPrice('');
-    //     setDiscount('');
-    //     setCancellation('');
-    //     setSelectedAmenities([]);
+        if (formRef.current) {
+        const formData = new FormData(formRef.current);
+        const room: Omit<Room, 'id'> = {
+            "name": formData.get('name')?.toString(),
+            "bed_type": formData.get('bed_type')?.toString(),
+            "photo": formData.get('photo')?.toString(),
+            "description": formData.get('description')?.toString(),
+            "rate": Number(formData.get('price')),
+            "offer": Number(formData.get('price')) * (1 - Number(formData.get('discount')) / 100),
+            "status": "Available",
+            "amenities": amenities
+        }
+        dispatch(createRoom(room))
+        navigate('/rooms');
+        }
+    }
 
-    };
     return (
-    <div className="modal-new-room">
-        <form onSubmit={handleSubmit} className='form-new-room'>
-            <div>
-                {photoUrls.map((url) => (
-                <img src={url} alt="Room Photo" key={url} style={{ width: '100px', marginBottom: '10px', marginLeft: '10%' }} />
-                ))}
-            </div>
-            <div>
-                <label htmlFor="photos">Fotos (mínimo 3, máximo 5):</label>
-                <input
-                className='input-new-room'
-                type="file"
-                id="photos"
-                name="photos"
-                accept="image/*"
-                multiple
-                onChange={handlePhotoChange}
-                />
-            </div>
-            <div className='roomType-roomNumber'>
-                <div className='div_roomType'>
-                    <label htmlFor="roomType">Tipo de habitación:</label>
-                    <select
-                        id="roomType"
-                        name="roomType"
-                        value={roomType}
-                        onChange={(e) => setRoomType(e.target.value)}
-                    >
-                        <option value="">Seleccionar tipo de habitación</option>
+        <div className='new-room'>
+        <h2 className='new-room__title'>Add New Room</h2>
+        <form ref={formRef} className='form-new-room' onSubmit={(e) => handleSubmit(e)}>
+            <div className='new-room__form__grid'>
+                <div className='new-room__form__column'>
+                    <div className='create__form__column__cell'>
+                        <label className='weight-600' htmlFor="name">Room name</label>
+                        <input name='name' type="text" id='name' />
+                    </div>
+                    <div className='create__form__column__cell'>
+                        <label className='weight-600' htmlFor="price">Price</label>
+                        <input name='price' type="number" />
+                    </div>
+                    <div className='create__form__radio'>
+                    <i>Discount?</i>
+                        <label htmlFor="offerYes">Yes</label>
+                        <input type="radio" name='offer' id='offerYes' onChange={() => setOffer(true)} checked={offer} />
+                        <label htmlFor="offerNo">No</label>
+                        <input type="radio" name='offer' id='offerNo' onChange={() => setOffer(false)} checked={!offer} />
+                    </div>
+                    {
+                    offer &&
+                    <div className='create__form__column__cell'>
+                        <label className='weight-600' htmlFor="discount">Discount (%)</label>
+                        <input name='discount' type="number" id='discount' />
+                    </div>
+                    }
+                    <select name='bed_type' className='create__form__column__cell weight-600'>
                         <option value="Single Bed">Single Bed</option>
                         <option value="Double Bed">Double Bed</option>
-                        <option value="Double Superior">Double Superior</option>
-                        <option value="Suite">Suite</option>
+                        <option value="Double Luxury">Double Luxury</option>
                     </select>
+                    <div className='create__form__column__cell'>
+                        <label htmlFor="photo" className='weight-600'>Image URL</label>
+                        <input type="text" name='photo' />
                     </div>
-                <div>
-                    <label htmlFor="roomNumber">Número de habitación:</label>
-                    <input
-                    className='input-new-room'
-                    type="text"
-                    id="roomNumber"
-                    name="roomNumber"
-                    value={roomNumber}
-                    onChange={(e) => setRoomNumber(e.target.value)}
-                    />
+                    <div className='create__form__column__cell create__form__amenities'>
+                        <label className='weight-600' htmlFor="amenities">Amenities</label>
+                    <div>
+                        <div className='create__form__amenities__box'>
+                        <label htmlFor="shower">Shower</label>
+                        <input type="checkbox" id="shower" name='Shower' defaultChecked onChange={(e) => handleAmenities(e)} />
+                        </div>
+                        <div className='create__form__amenities__box'>
+                        <label htmlFor="ac">AC</label>
+                        <input type="checkbox" id="ac" name='AC' defaultChecked onChange={(e) => handleAmenities(e)} />
+                        </div>
+                        <div className='create__form__amenities__box'>
+                        <label htmlFor="wifi">Wifi</label>
+                        <input type="checkbox" id="wifi" name='Wifi' defaultChecked onChange={(e) => handleAmenities(e)} />
+                        </div>
+                        <div className='create__form__amenities__box'>
+                        <label htmlFor="ledtv">LED TV</label>
+                        <input type="checkbox" id="ledtv" name='LED TV' defaultChecked onChange={(e) => handleAmenities(e)} />
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div className='create__form__column'>
+                    <div className='create__form__column__cell'>
+                    <label className='weight-600' htmlFor="description">Description</label>
+                    <textarea name='description' id="description" cols={30} rows={10}></textarea>
+                    </div>
+                    <div className='create__form__column__cell'>
+                    <label className='weight-600' htmlFor="cancel">Cancellation Policy</label>
+                    <textarea name='cancellation' cols={30} rows={10} id='cancel'></textarea>
+                    </div>
                 </div>
             </div>
-            <div>
-                <label htmlFor="description">Descripción de la habitación:</label>
-                <textarea
-                id="description"
-                name="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="offer">Oferta:</label>
-                <input
-                type="checkbox"
-                id="offer"
-                name="offer"
-                checked={offer}
-                onChange={(e) => setOffer(e.target.checked)}
-                />
-            </div>
-            <div>
-                <label htmlFor="price">Precio por noche:</label>
-                <input
-                type="text"
-                id="price"
-                name="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="discount">Descuento (porcentaje):</label>
-                <input
-                type="text"
-                id="discount"
-                name="discount"
-                value={discount}
-                onChange={(e) => setDiscount(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="cancellation">Política de cancelación:</label>
-                <textarea
-                id="cancellation"
-                name="cancellation"
-                value={cancellation}
-                onChange={(e) => setCancellation(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Amenities:</label>
-                <div>
-                <label>
-                    <input
-                    type="checkbox"
-                    name="amenities"
-                    value="TV"
-                    checked={selectedAmenities.includes('TV')}
-                    onChange={handleAmenityChange}
-                    />
-                    TV
-                </label>
-                </div>
-                <div>
-                <label>
-                    <input
-                    type="checkbox"
-                    name="amenities"
-                    value="bañera"
-                    checked={selectedAmenities.includes('bañera')}
-                    onChange={handleAmenityChange}
-                    />
-                    Bañera
-                </label>
-                </div>
-                <div>
-                <label>
-                    <input
-                    type="checkbox"
-                    name="amenities"
-                    value="vista del mar"
-                    checked={selectedAmenities.includes('vista del mar')}
-                    onChange={handleAmenityChange}
-                    />
-                    Vista del mar
-                </label>
-                </div>
-                {/* Agrega más checkboxes para los amenities disponibles */}
-            </div>
-            <button type="submit">Crear habitación</button>
+            <button type='submit' className='create__form__btn'>Create Room</button>
         </form>
-    </div>
-);
-};
+        </div>
+    )
+}
 
-export default NewRoom;
+export default NewRoom

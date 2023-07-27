@@ -53,14 +53,14 @@ async(roomId, { getState, rejectWithValue }) => {
 
 export const createRoom = createAsyncThunk<Room, Omit<Room, 'id'>, { state: RootState, rejectValue: Error }>(
 'room/createRoomStatus',
-async(room, { getState, rejectWithValue }) => {
+async(rooms, { getState, rejectWithValue }) => {
     try {
     return new Promise((resolve) => {
         setTimeout(() => {
         const { roomList } = getState().rooms.data;
         resolve({
             id: roomList[roomList.length-1].id + 1,
-            ...room
+            ...rooms
         });
         }, 200);
     });

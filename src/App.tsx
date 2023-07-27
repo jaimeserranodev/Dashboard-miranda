@@ -9,6 +9,8 @@ import Contact from './pages/contact/Contact';
 import Rooms from './pages/rooms/Rooms';
 import Users from './pages/users/Users';
 import Login from './pages/login/Login';
+import NewRoom from './pages/rooms/NewRoom';
+import DetailsRoom from './pages/rooms/DetailsRoom';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
                           <Route path="/Booking" element={<Booking />} />
                           <Route path="/Contact" element={<Contact />} />
                           <Route path="/Rooms" element={<Rooms />} />
+                          <Route path="/Rooms/create" element={<NewRoom />} />
+                          <Route path="/Rooms/:id" element={<DetailsRoom />} />
                           <Route path="/Users" element={<Users />} />
                         </Route>
                       
