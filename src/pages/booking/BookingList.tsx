@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { RootState } from "../../store/store";
 import {
     sortByGuest,
@@ -7,13 +8,18 @@ import {
     sortByCheckOut,
     sortByOrderDate,
     sortByStatus,
-} from "src/features/booking/BookingSlice";
+} from "../../features/booking/BookingSlice";
 import "./styles/booking.css";
+import client from "../../api/httpclient";
+import { BookingType } from "../../types/features";
+
+
 
 const BookingList: React.FC = () => {
+    
     const dispatch = useDispatch();
     const { data } = useSelector((state: RootState) => state.booking);
-
+    console.log("holahola", data);
     const [selectedSort, setSelectedSort] = useState<string>('orderDate');
 
     const [optionsSelect, setOptionsSelect] = useState([

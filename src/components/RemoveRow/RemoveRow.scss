@@ -1,0 +1,34 @@
+.list__table__row__ellipsis {
+    position: absolute;
+    right: 30px;
+    transition: all 0.3s;
+  }
+  .list__table__row__ellipsis i {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .list__table__row__ellipsis i:hover {
+    background-color: rgba(178, 178, 178, 0.5);
+  }
+  .list__table__row__ellipsis i:active {
+    background-color: #B2B2B2;
+  }
+  .list__table__row__delete {
+    position: absolute;
+    top: -30px;
+    left: 30px;
+    padding: 5px 10px;
+    background-color: #eee;
+    border-radius: 8px;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+  .list__table__row__delete:active {
+    background-color: #B2B2B2;
+  }

@@ -3,7 +3,7 @@ import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
 import Header from '../../components/Dashboard/Header/Header'
 import Table from '../../components/table/tableRooms'
 import RoomsList from './RoomList';
-import { Room } from 'src/types/features';
+import { Room } from '../../types/features';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getRoomList } from '../../features/rooms/roomThunks';

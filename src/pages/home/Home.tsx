@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../../components/Dashboard/Header/Header';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar';
 import Widget from '../../components/widget/widget';
-import Customers from '../../components/Dashboard/customers/customers';
+import Customers from '../../components/Dashboard/customers/contactCard';
 import "./home.css";
 
 function Home() {

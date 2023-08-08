@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getBookingList } from "./BookingThunks";
-import { BookingType, Status } from "src/types/features";
 
-interface BookingState {
+import { getBookingList } from "./BookingThunks";
+import { BookingType, Status } from "../../types/features";
+
+export interface BookingState {
     data: BookingType[];
     status: Status;
     error: Error | undefined;
@@ -19,8 +20,8 @@ export const bookingSlice = createSlice({
     initialState,
     reducers: {
         //Cargar data / peticion - api
-        addBooks: (state: BookingState, action: PayloadAction<BookingType[]>) => {
-        console.log('addBooks', action.payload);  
+        addBooks: (state: BookingState, action: PayloadAction<any[]>) => {
+        console.log('hola', action.payload);  
         state.data = action.payload;
         state.status = "loaded";
         state.data.sort(({ date: dateA }, { date: dateB }) => {

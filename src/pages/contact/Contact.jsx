@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Dashboard/sidebar/Sidebar'
 import Header from '../../components/Dashboard/Header/Header.tsx'
-import Customers from '../../components/Dashboard/customers/customers';
+import Customers from '../../components/Dashboard/customers/contactCard';
 import ContactList from './ContactList';
-import contactListData from "./contactListData.json"
+import ContactData from "../contact/ContactData.json"
 import { store } from '../../store/store';
 import { Provider } from 'react-redux';
+import ContactCards from '../../components/Dashboard/customers/contactDetails';
 import TableContact from "../../components/table/tableContact"
 
 function Contact() {
@@ -21,9 +22,9 @@ function Contact() {
         {showSidebar && <Sidebar />}
             <div className="homeContainer">
                 <Header toggleSidebar={toggleSidebar} showSidebar={showSidebar} />
-                <Customers />
-                <ContactList />
-                <TableContact contact={contactListData} />
+                {/* <Customers /> */}
+                <ContactCards />
+                <TableContact contact={ContactData} />
             </div>
         </div>
         </Provider>

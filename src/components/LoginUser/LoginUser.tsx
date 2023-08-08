@@ -56,7 +56,7 @@ const LoginUser = () => {
                         value={email}
                         onChange={(e)=> setEmail(e.target.value)}
                         autoComplete='off'
-                        placeholder='email'
+                        placeholder='admin'
                         />
                 
                     <input 
@@ -68,7 +68,7 @@ const LoginUser = () => {
                         value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                         autoComplete='off'
-                        placeholder='password'
+                        placeholder='admin'
                         />
                 
                 <Button type="submit" data-cy="submit">Login</Button>

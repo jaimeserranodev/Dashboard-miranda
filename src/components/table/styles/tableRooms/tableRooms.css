@@ -37,10 +37,17 @@
   font-size: medium;
   font-weight: 500;
 }
+.table .RoomsList .d-flex-center {
+  margin-right: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .table .RoomsList .d-flex-center .newRoom {
   background-color: #135846;
   color: #fff;
-  width: 120px;
+  width: 100px;
   padding: 10px 20px;
   border: none;
   border-radius: 12px;

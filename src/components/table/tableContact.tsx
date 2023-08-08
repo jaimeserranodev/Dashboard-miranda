@@ -1,111 +1,108 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/store/store';
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
-import "./styles/table.css";
+import { archiveContactById, getContactList } from "../../features/contact/ContactThunks";
 
-//-----------PAGINATION---------------------//
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  goToPage: (page: number) => void;
-  goToNextPage: () => void;
-  goToPreviousPage: () => void;
-}
+import ContactCards from '../Dashboard/customers/contactCard';
+import { sortOrFilterContactsBy } from '../../utils/sortOtFilterContactsBy';
 
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { Contact } from '../../types/features';
+import "../table/styles/tableContact/tableContact.css"
+const TableContact = () =>{
+  const { data, status } = useAppSelector(state => state.contact);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [showContacts, setShowContacts] = useState<Contact[]>([]);
+  const [pagination, setPagination] = useState(1);
+  const [sortOrFilterBy, setSortOrFilterBy] = useState('newest');
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, goToPage, goToNextPage, goToPreviousPage }) => {
-  const visiblePageNumbers: number[] = [];
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const maxVisiblePages = 4;
-  const startPage = Math.max(currentPage - 1, 1);
-  const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+  useEffect(() => {
+    if (status === 'not-loaded') {
+      dispatch(getContactList());
+    }
+    setContacts(sortOrFilterContactsBy(sortOrFilterBy, [...data]));
+    setPagination(1);
+    // eslint-disable-next-line
+  }, [data, sortOrFilterBy])
 
-  for (let i = startPage; i <= endPage; i++) {
-    visiblePageNumbers.push(i);
+  useEffect(() => {
+    let index = pagination === 1 ? 0 : (pagination-1)*10;
+    setShowContacts(contacts.slice(index, index+10));
+  }, [pagination, contacts])
+
+  const handleArchive = (e: React.MouseEvent<HTMLButtonElement>, contactId: string) => {
+    dispatch(archiveContactById(contactId));
+    e.stopPropagation();
   }
 
   return (
-    <div className='pagination'>
-      <button className='btn' onClick={goToPreviousPage} disabled={currentPage === 1}>Prev</button>
-      <div className="page-buttons">
-        {visiblePageNumbers.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            className={`page-button ${pageNumber === currentPage ? 'active' : ''}`}
-            onClick={() => goToPage(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
+    <>
+      <ContactCards />
+      <div className='list'>
+        
+        <div className='list-table'>
+        <div className='list__top'>
+          <ul className='list__top__menu'>
+            <li className={`list__top__menu__item ${sortOrFilterBy !== 'archived' ? 'list__top__menu__item--active' : ''}`} 
+              onClick={() => setSortOrFilterBy('newest')}
+            >All Contacts</li>
+            <li className={`list__top__menu__item ${sortOrFilterBy === 'archived' ? 'list__top__menu__item--active' : ''}`} 
+              onClick={() => setSortOrFilterBy('archived')}
+            >Archived</li>
+          </ul>
+          <div className='d-flex-center'>
+            <Link to='/contact/create' className='list__top__new-room'>New Contact +</Link>
+            <select className='list__top__select' value={sortOrFilterBy} onChange={(e) => setSortOrFilterBy(e.target.value)}>
+              <option className='list__top__select__text' value="newest">Newest</option>
+              <option className='list__top__select__text' value="oldest">Oldest</option>
+            </select>
+          </div>
+        </div>
+        <div className='list__table'>
+          <div className='list__table__row list__table__row--first'>
+            <p className='list__table__row__item weight-700'>Date</p>
+            <p className='list__table__row__item weight-700'>Customer</p>
+            <p className='list__table__row__item weight-700'>Subject & Comment</p>
+            <p className='list__table__row__item'></p>
+          </div>
+          <ul style={{ listStyle: 'none' }}>
+            { status === 'pending' }
+            {
+              showContacts.length === 0 &&
+              <p className='list__table__nothing'>Nothing to show here</p>
+            }
+            {showContacts.map((contact) => {
+              return (
+                <div key={contact.id} onClick={() => navigate(`/contact/${contact.id}`)} className='list__table__row'>
+                  <p className='list__table__row__item weight-500'>
+
+                    {contact.date}
+                  </p>
+                  <p className='list__table__row__item weight-600'>
+                    {contact.name}
+                  </p>
+                  <div className='list__table__row__item contacts__col-cell'>
+                    <p className='weight-500'>{contact.subject}</p>
+                    <p className='small-text'>{contact.comment}</p>
+                  </div>
+                  <div className='list__table__row__item contacts__archive'>
+                    <button onClick={(e) => handleArchive(e, contact.id)}>Archive</button>
+                  </div>
+                </div> 
+              )})}
+          </ul>
+        </div>
+        </div>
+        <div className='list__bottom'>
+          <p className='list__bottom__text'>Showing {showContacts.length} of {data.length} Data</p>
+          
+        </div>
       </div>
-      <button className='btn' onClick={goToNextPage} disabled={currentPage === totalPages}>Next</button>
-    </div>
-  );
-};
+    </>
+  )
+}
 
-//-------------------------- TABLE CONTACT-----------------------//
-
-
-
-const TableContact: React.FC  = () => {
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  const contactsPerPage = 8;
-  const currentContact = useSelector((state: RootState) => state.contact.list);
-
-  const totalPages = Math.ceil(currentContact.length / contactsPerPage);
-
-  const goToPage = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const indexOfLastContact = currentPage * contactsPerPage;
-  const indexOfFirstContact = indexOfLastContact - contactsPerPage;
-  const currentContactPage = currentContact.slice(indexOfFirstContact, indexOfLastContact);
-
-  return (
-    <div>
-      <table className='table'>
-        <tr className='borderTabla'>
-          <th className='tableCell'>Date</th>
-          <th className='tableCell'>Customer</th>
-          <th className='tableCellComment'>Comment</th>
-          <th className='tableCell'>Archive</th>
-        </tr>
-        {currentContactPage.map((contact, index) => (
-          <tr
-            className='tableRow'
-            key={index}
-          >
-            <td className='tableCell'>{contact.date} <br />{contact.id}</td>
-            <td className='tableCell'>{contact.customer} <br />{contact.email} <br />{contact.phoneNumber}</td>
-            <td className='tableCellComment'>Lorem ipsum dolor sit amet.</td>
-            <td className='tableCell'><button>Publish</button> <button>Archive</button></td>
-          </tr>
-        ))}
-      </table>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        goToPage={goToPage}
-        goToNextPage={goToNextPage}
-        goToPreviousPage={goToPreviousPage}
-      />
-    </div>
-  );
-};
-
-export default TableContact;
+export default TableContact

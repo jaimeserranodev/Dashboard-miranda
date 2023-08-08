@@ -27,14 +27,31 @@
     }
 }
 
-.sortBy{
-    border-color: #135846;
-    font-family: "Poppins";
-    border-radius: 20px;
-    border: 1px solid ;
-    color: #135846;
-    height: 49px;
-    option{
-        color: #135846;
+#sortBy{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3%;
+    margin-left: 10px;
+    border-radius: 10px;
+    .menu{
+        border: none;
+        .menu_button{
+            border: none;
+            color: #6E6E6E;
+            background-color: #F8F8F8;
+            border-bottom: 3px solid #F5F5F5;
+            text-align: right;
+            font-family: "Poppins";
+            font-size: medium;
+            text-align: center;
+            
+        }
+        :hover{
+            color: #135846;
+            cursor: pointer;
+            border-bottom:4px solid #135846;
+            font-size: medium;
+            font-weight: 500;
+        }
     }
 }

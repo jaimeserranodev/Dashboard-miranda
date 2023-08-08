@@ -31,7 +31,7 @@ function Header({ toggleSidebar, showSidebar }: { toggleSidebar: () => void, sho
                 titulo = "Users";
                 break;
             default:
-                titulo = "Página no encontrada";
+                titulo = "";
                 break;
         }
         return titulo;

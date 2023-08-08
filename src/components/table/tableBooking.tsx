@@ -5,7 +5,7 @@ import "./styles/table.css";
 
     //-------------------------- TABLA-----------------------//
     interface TableProps {
-        bookings: BookingType[];
+        bookings: any[];
     }
     const Table: React.FC<TableProps> = ({ bookings }) => {
         
@@ -63,9 +63,9 @@ import "./styles/table.css";
                 <td className='tableCell'>{booking.checkIn}<br />{booking.hourIn}</td>
                 <td className='tableCell'>{booking.checkOut}<br />{booking.checkOut}</td>
                 <td className='tableCell'>
-                <span className={`request ${booking.request}`}>{booking.request}</span>
+                <span className={`request ${booking.special_request}`}>{booking.request}</span>
                 </td>
-                <td className='tableCell'>{booking.roomTipe}</td>
+                <td className='tableCell'>{booking.room_type}</td>
                 <td className='tableCell'>
                 <span className={`status ${booking.status}`}>{booking.status}</span>
                 </td>

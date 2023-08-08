@@ -1,0 +1,106 @@
+$primary-color: #135846;
+$secondary-color: #E23428;
+$text-color: #799283;
+$gray-color: #B2B2B2;
+
+.contacts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+    margin-top: 2%;
+   width: 90%;
+  &__cards {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 40px;
+    overflow-x: hidden;
+    width: calc(100% + 50px);
+
+    &__card {
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0px 4px 4px #00000009;
+      padding: 30px;
+      min-width: 26%;
+      max-width: 26%;
+      margin-right: 40px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &__text {
+        font-size: 12px;
+        color: #4E4E4E;
+      }
+
+      &__flex {
+        margin-top: 25px;
+        display: flex;
+        align-items: center;
+
+        &__img {
+          width: 50px;
+          height: 50px;
+          border-radius: 8px;
+          background-color: #EBF1EF;
+          margin-right: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &__main {
+          margin-right: auto;
+          &__name {
+            font-weight: 600;
+          }
+          &__time {
+            font-size: 13px;
+            color: #799283;
+          }
+        }
+
+        &__read {
+          i {
+            font-size: 24px;
+            margin: 0 4px;
+            cursor: pointer;
+          }
+          &__true {
+            color: #5AD07A;
+          }
+          &__false {
+            color: $secondary-color;
+          }
+        }
+      }
+    }
+  }
+  
+  &__col-cell {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__archive {
+    justify-content: center;
+
+    button {
+      background-color: #EBF1EF;
+      font-weight: 600;
+      font-size: 16px;
+      color: $primary-color;
+      border-radius: 8px;
+      padding: 8px 15px;
+      border: none;
+      cursor: pointer;
+      transition: all .3s;
+
+      &:hover {
+        background-color: darken(#EBF1EF, 10);
+      }
+    }
+  }
+}

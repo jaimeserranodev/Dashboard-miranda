@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getRoomList, createRoom, deleteRoomById, updateRoom, getRoom } from './roomThunks';
 import { Room, Status } from '../../types/features';
 
-interface RoomState {
+export interface RoomState {
   data: {
     roomList: Room[],
     selectedRoom: Room | null

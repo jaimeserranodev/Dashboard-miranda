@@ -61,4 +61,4 @@ export interface Contact {
     subject: string | undefined;
     comment: string | undefined;
     archived: boolean;
-}
+    }
