@@ -8,6 +8,7 @@ interface ThunkApiConfig {
   dispatch: Dispatch<any>; // Asegúrate de importar Dispatch desde 'redux'
 }
 
+//Este metodo para la peticion a la apis
 export const getBookingList = createAsyncThunk<BookingType[], void, ThunkApiConfig>(
   "booking/getBookingListStatus",
   async (_, thunkAPI) => {

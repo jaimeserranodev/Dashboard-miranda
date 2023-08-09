@@ -60,8 +60,8 @@ import "./styles/table.css";
                 </div>
                 </td>
                 <td className='tableCell'>{booking.date}</td>
-                <td className='tableCell'>{booking.checkIn}<br />{booking.hourIn}</td>
-                <td className='tableCell'>{booking.checkOut}<br />{booking.checkOut}</td>
+                <td className='tableCell'>{booking.check_in}<br />{booking.hourIn}</td>
+                <td className='tableCell'>{booking.check_out}<br />{booking.checkOut}</td>
                 <td className='tableCell'>
                 <span className={`request ${booking.special_request}`}>{booking.request}</span>
                 </td>
