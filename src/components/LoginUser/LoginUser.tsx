@@ -4,6 +4,7 @@ import React, { useContext, useState, useEffect, FormEvent } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../../styles/variables";
+import client from "../../api/httpclient";
 
 const LoginUser = () => {
 
@@ -13,7 +14,7 @@ const LoginUser = () => {
     const [password, setPassword] = useState("");
     const [showAlert, setShowAlert] = useState(false);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
             email: { value: string };
@@ -22,12 +23,27 @@ const LoginUser = () => {
         const emailValue = target.email.value;
         const passwordValue = target.password.value;
     
-        if (emailValue === "admin" && passwordValue === "admin") {
-            authDispatch({ type: "LOGIN", payload: { email: emailValue, password: passwordValue } });
+        try {
+            const { data } = await client.post('/login', {
+                email: emailValue,
+                password: passwordValue
+            });
+            const token = data.token;
+            authDispatch({ type: "LOGIN", payload: {email, token } });
             navigate("/Home");
-        } else {
+            
+        } catch (error) {
+            console.log(error);        
             setShowAlert(true);
         }
+
+        // Antiguo
+        // if (emailValue === "admin" && passwordValue === "admin") {
+        //     authDispatch({ type: "LOGIN", payload: { email: emailValue, password: passwordValue } });
+        //     navigate("/Home");
+        // } else {
+        //     setShowAlert(true);
+        // }
     };
 
     useEffect(() => {
