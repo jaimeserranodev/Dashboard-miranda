@@ -10,7 +10,7 @@ interface AuthActionLogin {
     type: "LOGIN";
     payload: {
     email: string;
-    password: string;
+    token: string;
     };
 }
 
@@ -37,20 +37,19 @@ const initialState: AuthState = {
     const authReducer = (state: AuthState, action: AuthAction) => {
     switch (action.type) {
         case "LOGIN":
-            const { email, password } = action.payload;
-            
+            const { email, token } = action.payload;
             localStorage.setItem('email', email);
-            localStorage.setItem('password', password);
+            localStorage.setItem('token', token);
             return {
                 ...state,
                 isLoggedIn: true,
                 email,
-                password,
             };
             case "LOGOUT":
                 localStorage.removeItem('logged');
                 localStorage.removeItem('email');
                 localStorage.removeItem('password');
+                localStorage.removeItem('token');
                 window.location.reload()
 
                 return {

@@ -14,9 +14,10 @@ const ContactCreate = () => {
     e.preventDefault();
     if (formRef.current) {
       const formData = new FormData(formRef.current);
-      const contact: Omit<Contact, 'id'> = {
+      const contact: Omit<Contact, '_id'> = {
+        "photo": formData.get('photo')?.toString(),
         "date": new Date().toISOString(),
-        "name": formData.get('full_name')?.toString(),
+        "name": formData.get('name')?.toString(),
         "email": formData.get('email')?.toString(),
         "phone": formData.get('phone')?.toString(),
         "subject": formData.get('subject')?.toString(),

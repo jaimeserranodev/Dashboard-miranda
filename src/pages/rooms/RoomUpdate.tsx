@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { updateRoom } from '../../features/rooms/roomThunks';
+import { updateRoom, getRoomList } from '../../features/rooms/roomThunks';
 import  "../../images/rooms-3.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Room } from '../../types/features';
@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 const RoomUpdate = () => {
   const params = useParams();
   const { data } = useAppSelector(state => state.rooms);
-  const room = data.roomList.find(({ id }) => id === Number(params.id));
+  const room = data.roomList.find(({ _id }) => _id === String(params.id));
   
   const formRef = useRef(null);
 
@@ -21,7 +21,7 @@ const RoomUpdate = () => {
     if (formRef.current) {
       const formData = new FormData(formRef.current);
       const room: Room = {
-        "id": Number(params.id),
+        "_id": String(params.id),
         "name": formData.get('name')?.toString(),
         "bed_type": formData.get('bed_type')?.toString(),
         "photo": room3,
@@ -32,6 +32,7 @@ const RoomUpdate = () => {
         "status": "Available",
       }
       dispatch(updateRoom(room))
+      dispatch(getRoomList())
       navigate('/rooms');
     }
   }

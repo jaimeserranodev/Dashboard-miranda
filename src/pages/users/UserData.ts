@@ -1,10 +1,9 @@
 import { User } from '../../types/features';
 import jaimePhoto from '../../imagenes/foto.perfil.jpeg';
 
-
 export const usersJson: User[] = [
     {
-        "id": 1,
+        "_id": 1,
         "full_name": "Jaime Serrano",
         "username": "jaime",
         "photo": jaimePhoto,
@@ -16,7 +15,7 @@ export const usersJson: User[] = [
         "password": "admin"
     },
     {
-        "id": 2,
+        "_id": 2,
         "full_name": "Alice Johnson",
         "username": "alicej",
         "photo": "https://randomuser.me/api/portraits/women/1.jpg",
@@ -28,7 +27,7 @@ export const usersJson: User[] = [
         "password": "p@ssword123"
     },
     {
-        "id": 3,
+        "_id": 3,
         "full_name": "Bob Smith",
         "username": "bobsmith",
         "photo": "https://randomuser.me/api/portraits/men/1.jpg",
@@ -40,7 +39,7 @@ export const usersJson: User[] = [
         "password": "mysecret"
     },
     {
-        "id": 4,
+        "_id": 4,
         "full_name": "Lucas Torres",
         "username": "lucast",
         "photo": "https://randomuser.me/api/portraits/men/2.jpg",
@@ -52,7 +51,7 @@ export const usersJson: User[] = [
         "password": "mysecurepass"
     },
     {
-        "id": 5,
+        "_id": 5,
         "full_name": "Maria Rodriguez",
         "username": "maria_rod",
         "photo": "https://randomuser.me/api/portraits/women/2.jpg",
@@ -64,7 +63,7 @@ export const usersJson: User[] = [
         "password": "mypassword"
     },
     {
-        "id": 6,
+        "_id": 6,
         "full_name": "Luisa Perez",
         "username": "luisap",
         "photo": "https://randomuser.me/api/portraits/women/3.jpg",
@@ -76,7 +75,7 @@ export const usersJson: User[] = [
         "password": "12345678"
     },
     {
-        "id": 7,
+        "_id": 7,
         "full_name": "Mark Johnson",
         "username": "markj",
         "photo": "https://randomuser.me/api/portraits/men/3.jpg",
@@ -88,7 +87,7 @@ export const usersJson: User[] = [
         "password": "password123"
     },
     {
-        "id": 8,
+        "_id": 8,
         "full_name": "Samantha Lee",
         "username": "samlee",
         "photo": "https://randomuser.me/api/portraits/women/4.jpg",

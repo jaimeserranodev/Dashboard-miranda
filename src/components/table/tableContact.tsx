@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
-import { archiveContactById, getContactList } from "../../features/contact/ContactThunks";
+import {  getContactList, archiveContactById } from "../../features/contact/ContactThunks";
 
-import ContactCards from '../Dashboard/customers/contactCard';
 import { sortOrFilterContactsBy } from '../../utils/sortOtFilterContactsBy';
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import  ContactData  from "./../../pages/contact/ContactData.json";
 import { Contact } from '../../types/features';
 import "../table/styles/tableContact/tableContact.css"
-const TableContact = () =>{
-  const { data, status } = useAppSelector(state => state.contact);
+
+
+interface TableProps {
+  contact: any[];
+}
+
+const TableContact: React.FC<TableProps> = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [showContacts, setShowContacts] = useState<Contact[]>([]);
   const [pagination, setPagination] = useState(1);
@@ -20,27 +25,33 @@ const TableContact = () =>{
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (status === 'not-loaded') {
-      dispatch(getContactList());
-    }
-    setContacts(sortOrFilterContactsBy(sortOrFilterBy, [...data]));
-    setPagination(1);
-    // eslint-disable-next-line
-  }, [data, sortOrFilterBy])
+    // Suponiendo que ContactData es un array de objetos Contact
+    setContacts(sortOrFilterContactsBy(sortOrFilterBy, ContactData));
+    // No es necesario dependencia en ContactData ya que es un dato estático importado
+  }, [sortOrFilterBy]);
 
   useEffect(() => {
-    let index = pagination === 1 ? 0 : (pagination-1)*10;
-    setShowContacts(contacts.slice(index, index+10));
-  }, [pagination, contacts])
+    let index = (pagination - 1) * 10;
+    setShowContacts(contacts.slice(index, index + 10));
+  }, [pagination, contacts]);
 
-  const handleArchive = (e: React.MouseEvent<HTMLButtonElement>, contactId: string) => {
-    dispatch(archiveContactById(contactId));
+  const handleArchive = (e: React.MouseEvent<HTMLButtonElement>, _id: string) => {
+    dispatch(archiveContactById(_id));
     e.stopPropagation();
-  }
+  };
+
+  const handlePreviousPage = () => {
+    setPagination((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setPagination((prev) => Math.min(prev + 1, Math.ceil(contacts.length / 10)));
+  };
+  
+    // -----------------------------------------------------------//
 
   return (
     <>
-      <ContactCards />
       <div className='list'>
         
         <div className='list-table'>
@@ -68,15 +79,18 @@ const TableContact = () =>{
             <p className='list__table__row__item weight-700'>Subject & Comment</p>
             <p className='list__table__row__item'></p>
           </div>
-          <ul style={{ listStyle: 'none' }}>
-            { status === 'pending' }
+          
+          <ul className='noMargen' style={{ listStyle: 'none' }}>
+            
+           
             {
               showContacts.length === 0 &&
               <p className='list__table__nothing'>Nothing to show here</p>
             }
             {showContacts.map((contact) => {
+              
               return (
-                <div key={contact.id} onClick={() => navigate(`/contact/${contact.id}`)} className='list__table__row'>
+                <div key={contact._id} onClick={() => navigate(`/contact/${contact._id}`)} className='list__table__row'>
                   <p className='list__table__row__item weight-500'>
 
                     {contact.date}
@@ -89,7 +103,7 @@ const TableContact = () =>{
                     <p className='small-text'>{contact.comment}</p>
                   </div>
                   <div className='list__table__row__item contacts__archive'>
-                    <button onClick={(e) => handleArchive(e, contact.id)}>Archive</button>
+                    <button onClick={(e) => handleArchive(e, contact._id)}>Archive</button>
                   </div>
                 </div> 
               )})}
@@ -97,12 +111,31 @@ const TableContact = () =>{
         </div>
         </div>
         <div className='list__bottom'>
-          <p className='list__bottom__text'>Showing {showContacts.length} of {data.length} Data</p>
+          <p className='list__bottom__text'>Showing {showContacts.length} of {contacts.length} Data</p>
           
         </div>
       </div>
+      <div className="list__table__pagination">
+        <button
+          className="list__table__pagination__button"
+          onClick={handlePreviousPage}
+          disabled={pagination === 1}
+        >
+          Previous
+        </button>
+        <button
+          className="list__table__pagination__button"
+          onClick={handleNextPage}
+          disabled={pagination >= Math.ceil(contacts.length)}
+        >
+          Next
+        </button>
+      </div>
+    
     </>
+    
   )
+  
 }
 
 export default TableContact

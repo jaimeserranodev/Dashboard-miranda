@@ -1,6 +1,6 @@
 import { Room } from "../types/features";
 
-export const changeRoomsBy = (changeBy: string, data: Room[]) => {
+export const changeRoomsBy = (changeBy: string, data: any[]) => {
     if (changeBy === 'number') {
         return data.sort((a, b) => a.id - b.id);
     } else if (changeBy === 'status') {

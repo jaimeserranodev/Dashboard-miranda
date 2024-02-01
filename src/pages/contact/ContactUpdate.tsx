@@ -2,11 +2,12 @@ import React, { useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { updateContact } from '../../features/contact/ContactThunks';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Contact } from '../../types/features';
 
 const ContactUpdate = () => {
   const { data } = useAppSelector(state => state.contact);
   const params = useParams();
-  const contact = data.find((contact) => contact.id === params.id);
+  const contact = data.contactList.find(({ _id }) => _id === String(params.id));
   const formRef = useRef(null);
 
   const dispatch = useAppDispatch();
@@ -14,17 +15,19 @@ const ContactUpdate = () => {
   
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    if (formRef.current && contact?.id) {
+    if (formRef.current && contact?._id) {
       const formData = new FormData(formRef.current);
-      const newContact = {
-        ...contact,
+      const contact: Contact = {
+        "photo": formData.get('photo')?.toString() || '',
+        "_id": formData.get('_id')?.toString() || '',        
+        "date": new Date().toISOString(),        archived: false, // Establece el valor de archived según corresponda
         "name": formData.get('full_name')?.toString(),
         "email": formData.get('email')?.toString(),
         "phone": formData.get('phone')?.toString(),
         "subject": formData.get('subject')?.toString(),
-        "comment": formData.get('comment')?.toString()
+        "comment": formData.get('comment')?.toString(),
       }
-      dispatch(updateContact(newContact))
+      dispatch(updateContact(contact))
       navigate('/contact');
     }
   }

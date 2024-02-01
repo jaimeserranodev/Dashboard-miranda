@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getRoomList, deleteRoomById } from "../../features/rooms/roomThunks";
 import { changeRoomsBy } from "../../utils/changeRoomsBy";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Room } from "../../types/features";
+
+import { RoomData } from "../../pages/rooms/RoomData";
 import "../../components/table/styles/table.css";
 import { RootState } from "../../store/store";
 import IRemoveRow from "../RemoveRow/RemoveRow";
 import "./styles/tableRooms/tableRooms.css";
-
+import { BsFillTrashFill } from "react-icons/bs";
 interface TableProps {
-  rooms: Room[];
+  rooms: any[];
 }
 
 const RoomList: React.FC<TableProps> = () => {
@@ -21,7 +23,7 @@ const RoomList: React.FC<TableProps> = () => {
   const [showRooms, setShowRooms] = useState<Room[]>([]);
   const [pagination, setPagination] = useState(1);
   const [changeBy, setChangeBy] = useState("all");
-
+  const { _id } = useParams(); 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -29,7 +31,7 @@ const RoomList: React.FC<TableProps> = () => {
     if (status === "not-loaded") {
       dispatch(getRoomList());
     }
-    setRooms(changeRoomsBy(changeBy, [...roomList]));
+    setRooms(changeRoomsBy(changeBy, [...RoomData]));
     setPagination(1);
     // eslint-disable-next-line
   }, [roomList, changeBy]);
@@ -39,9 +41,16 @@ const RoomList: React.FC<TableProps> = () => {
     setShowRooms(rooms.slice(index, index + 10));
   }, [pagination, rooms]);
 
-  const handleDelete = (e: React.MouseEvent<HTMLElement>, roomId: number) => {
-    dispatch(deleteRoomById(roomId));
-    e.stopPropagation();
+
+  const handleDelete = async (e: React.MouseEvent<HTMLElement>, _id: string) => {
+    try {
+      await dispatch(deleteRoomById(_id));
+      await dispatch(getRoomList());
+      e.stopPropagation();
+    } catch (error) {
+      // Manejar errores aquí
+      console.error('Error:', error);
+    }
   };
 
   const getRandomOfferPercentage = () => {
@@ -65,6 +74,11 @@ const RoomList: React.FC<TableProps> = () => {
     }
   };
 
+  // -----------------------------------------------------------//
+
+  // ---------------------DELETE ROW---------------------------//
+  
+  
   return (
     <div className="table">
       <div className="RoomsList">
@@ -120,6 +134,7 @@ const RoomList: React.FC<TableProps> = () => {
       <table className="table">
         <thead>
           <tr className="borderTabla">
+            <th className="tableCell">ID</th>
             <th className="tableCell">Photo</th>
             <th className="tableCell">Room Name</th>
             <th className="tableCell">Room Type</th>
@@ -127,6 +142,7 @@ const RoomList: React.FC<TableProps> = () => {
             <th className="tableCell">Price</th>
             <th className="tableCell">Offer</th>
             <th className="tableCell">Status</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -138,17 +154,19 @@ const RoomList: React.FC<TableProps> = () => {
           )}
           {showRooms.map((room) => (
             <tr
-              key={room.id}
-              onClick={() => navigate(`/rooms/${room.id}`)}
+              key={room._id}
+              onClick={() => navigate(`/rooms/${room._id}`)}
               className="tableRow"
             >
               <td className="tableCell">
-                {room.id.toString().padStart(2, "0")}
+              {room._id !== undefined ? room._id.toString().slice(-4).padStart(4, "0") : ""}
+              </td>
+              <td className="tableCell">
                 <img src={room.photo} alt="" className="image" />
               </td>
               <td className="tableCell">{room.name}</td>
               <td className="tableCell">{room.bed_type}</td>
-              <td className="tableCell">
+              <td className="tableCellAmenities">
                 {room.amenities.slice(0, -1).map((amenity) => amenity + ", ")}
                 {room.amenities.slice(-1)[0]}
               </td>
@@ -157,11 +175,19 @@ const RoomList: React.FC<TableProps> = () => {
                 {getRandomOfferPercentage()}%
                 {/* Limitar el porcentaje al 100% */}
               </td>
-              
               <td className={`statusRoom ${room.status}`}>{room.status}</td>
-              <IRemoveRow handleDelete={handleDelete} id={room.id}/>
+              <td>
+                <button
+                  className="deleteButton"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(e, room._id);
+                  }}
+                >
+                  <BsFillTrashFill />
+                </button>
+              </td>
             </tr>
-            
           ))}
         </tbody>
       </table>

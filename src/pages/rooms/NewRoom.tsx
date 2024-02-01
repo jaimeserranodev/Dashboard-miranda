@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { createRoom } from '../../features/rooms/roomThunks';
+import { createRoom, getRoomList } from '../../features/rooms/roomThunks';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
 import { Room } from '../../types/features';
@@ -21,11 +21,11 @@ const NewRoom = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (formRef.current) {
         const formData = new FormData(formRef.current);
-        const room: Omit<Room, 'id'> = {
+        const room: Omit<Room, '_id'> = {
             "name": formData.get('name')?.toString(),
             "bed_type": formData.get('bed_type')?.toString(),
             "photo": formData.get('photo')?.toString(),
@@ -35,10 +35,16 @@ const NewRoom = () => {
             "status": "Available",
             "amenities": amenities
         }
-        dispatch(createRoom(room))
-        navigate('/rooms');
+        try {
+            await dispatch(createRoom(room));
+            // Después de crear la habitación, puedes llamar a getRoomList para actualizar la lista
+            dispatch(getRoomList());
+            navigate('/rooms');
+        } catch (error) {
+            // Manejar el error aquí, si es necesario
         }
     }
+}
 
     return (
         <div className='new-room'>

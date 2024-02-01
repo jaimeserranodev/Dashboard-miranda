@@ -6,8 +6,7 @@
 
 .list {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 0;
   padding: 0 30px;
 }
 
@@ -35,9 +34,16 @@
   background-color: #e23428;
 }
 
+.list__table__row__item__users__photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  margin-right: 20px;
+}
+
 .users__photo {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 12px;
   margin-right: 20px;
 }
@@ -161,7 +167,7 @@
   color: #393939;
   display: flex;
   align-items: center;
-  padding: 20px 30px;
+  padding: 10px 30px;
   border-bottom: 2px solid #f8f8f8;
   cursor: pointer;
 }
@@ -182,6 +188,7 @@
 .list__table__row__item {
   display: flex;
   width: 100%;
+  flex-direction: column;
 }
 
 .list__table__row__item__photo {
@@ -291,37 +298,28 @@
   color: #393939;
 }
 
-.list__bottom__pagination button {
-  height: 40px;
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
+.list__table__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-
-.list__bottom__pagination__btn1 {
-  background-color: white;
-  color: #135846;
-  border: 1px solid #135846;
-  width: 70px;
-}
-
-.list__bottom__pagination__btn1:first-child {
-  margin-right: 20px;
-}
-
-.list__bottom__pagination__btn1:last-child {
-  margin-left: 20px;
-}
-
-.list__bottom__pagination__btn2 {
-  background: none;
-  border: none;
-  width: 40px;
-}
-
-.list__bottom__pagination__btn2--active {
-  color: white;
+.list__table__pagination .list__table__pagination__button {
   background-color: #135846;
+  color: #fff;
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+.list__table__pagination :hover {
+  background-color: #45a049;
 }
 
 .list__notes-modal-wrapper {

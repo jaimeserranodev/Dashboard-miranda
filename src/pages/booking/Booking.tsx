@@ -12,8 +12,8 @@ function Booking() {
 
     const [showSidebar, setShowSidebar] = useState(true);
     const dispatch = useDispatch<AppDispatch>();
-    const { data } = useSelector((state: RootState) => state.booking);
-    console.log("holahola", data);
+    
+    
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar);
     };
@@ -21,6 +21,8 @@ function Booking() {
         dispatch(getBookingList());
     }, [dispatch])
     
+    const { data } = useSelector((state: RootState) => state.booking);
+    console.log("holahola", data);
     
     return (
         <Provider store={store}>
@@ -29,7 +31,7 @@ function Booking() {
                 <div className="homeContainer">
                     <Header  toggleSidebar={toggleSidebar} showSidebar={showSidebar}/>
                     <BookingList />
-                    <Table bookings={data}/>
+                    <Table bookings={BookingData}/>
                 </div>
             </div>
         </Provider>

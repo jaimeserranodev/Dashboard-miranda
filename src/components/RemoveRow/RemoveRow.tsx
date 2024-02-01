@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { BsFillTrashFill } from 'react-icons/bs';
 import "./RemoveRow.css";
 
 interface IRemoveRow {
-  handleDelete: (e: React.MouseEvent<HTMLElement>, id: number) => void;
-  id: number;
+  handleDelete: (e: React.MouseEvent<HTMLElement>, _id: string) => void;
+  _id: string;
 }
 
-const RemoveRow: React.FC<IRemoveRow> = ({ handleDelete, id }) => {
+const RemoveRow: React.FC<IRemoveRow> = ({ handleDelete, _id }) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const toggleDeleteBtn = (e: React.MouseEvent<HTMLElement>) => {
@@ -26,12 +26,12 @@ const RemoveRow: React.FC<IRemoveRow> = ({ handleDelete, id }) => {
   }, [])
   
   return (
-    <div className='list__table__row__ellipsis'>
-      <i onClick={(e) => toggleDeleteBtn(e)} className='.fa-solid fa-ellipsis-vertical'><BsThreeDotsVertical /></i>
+    <td className='list__table__row__ellipsis'>
+      <button onClick={(e) => toggleDeleteBtn(e)} className='.fa-solid fa-ellipsis-vertical'><BsFillTrashFill /></button>
       {showDelete && (
-        <p onClick={(e) => handleDelete(e, id)} className='list__table__row__delete'>Delete</p>
+        <p onClick={(e) => handleDelete(e, _id)} className='list__table__row__delete'>Delete</p>
       )}
-    </div>
+    </td>
   )
 }
 

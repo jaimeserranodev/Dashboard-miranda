@@ -42,27 +42,30 @@ const BookingList: React.FC = () => {
         dispatch(sortByOrderDate(data));
     };
 
-const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    setSelectedSort(selectedValue)
-    switch (selectedValue) {
-    case "guest":
-        handleSortByGuest();
-        break;
-    case "orderDate":
-        dispatch(sortByOrderDate(data));
-        break;
-    case "checkIn":
-        handleSortByCheckIn();
-        break;
-    case "checkOut":
-        handleSortByCheckOut();
-        break;
-    default:
-        // No se seleccionó ninguna opción válida, no hacemos nada
-        break;
-    }
-};
+    const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = event.target.value;
+        setSelectedSort(selectedValue);
+        switch (selectedValue) {
+            case "guest":
+                dispatch(sortByGuest(data));
+                break;
+            case "orderDate":
+                dispatch(sortByOrderDate(data));
+                break;
+            case "checkIn":
+                dispatch(sortByCheckIn(data));
+                break;
+            case "checkOut":
+                dispatch(sortByCheckOut(data));
+                break;
+            case "status":
+                dispatch(sortByStatus(data)); // Assuming you have a sortByStatus action
+                break;
+            default:
+                // No valid option selected, do nothing
+                break;
+        }
+    };
 
 return (
     <div className="BookingList">

@@ -87,6 +87,13 @@
   height: 80px;
   border-radius: 20px;
 }
+.table .tableCellAmenities {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1;
+  font-size: small;
+}
 .table tr {
   height: 80px;
   display: flex;

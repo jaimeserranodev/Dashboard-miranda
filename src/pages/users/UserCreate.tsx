@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { createUser } from '../../features/user/UserThunks';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
+import { User } from '../../types/features';
 
 const UserCreate: React.FC = () => {
   const formRef = useRef(null);
@@ -13,7 +14,9 @@ const UserCreate: React.FC = () => {
     e.preventDefault();
     if (formRef.current) {
       const formData = new FormData(formRef.current);
-      const user = {
+      const newUser: User = {
+        "_id": Number(formData.get('_id')?.toString()),
+
         "full_name": formData.get('full_name')?.toString(),
         "username": formData.get('username')?.toString(),
         "position": formData.get('position')?.toString(),
@@ -25,7 +28,7 @@ const UserCreate: React.FC = () => {
         "state": formData.get('state')?.toString(),
         "password": formData.get('password')?.toString()
       }
-      dispatch(createUser(user));
+      dispatch(createUser(newUser));
       navigate('/users');
     }
   }
@@ -85,7 +88,7 @@ const UserCreate: React.FC = () => {
             </div>
           </div>
         </div>
-        <button type='submit' className='create__form__btn'>Create Room</button>
+        <button type='submit' className='create__form__btn'>Create User</button>
       </form>
     </div>
   )

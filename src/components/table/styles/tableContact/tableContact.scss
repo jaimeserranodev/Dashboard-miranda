@@ -101,6 +101,7 @@
   .list__table__row__item {
     display: flex;
     flex-direction: column;
+
     width: 100%;
   }
   .list__table__row__item__photo {
@@ -228,3 +229,32 @@
   .small-text {
     font-size: 14px;
   }
+
+  .list__table__pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    .list__table__pagination__button{
+        background-color: #135846;
+        color: #fff;
+        width: 100px;
+        height: 40px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 40px;
+        
+    }:hover{
+        background-color: #45a049;
+        }
+}
+
+.noMargen{
+    margin: 0;
+    margin-left: -40px;
+}

@@ -18,17 +18,14 @@ const initialState = {
 export const bookingSlice = createSlice({
     name: "booking",
     initialState,
-    reducers: {
+    reducers:{ 
         //Cargar data / peticion - api
         addBooks: (state: BookingState, action: PayloadAction<any[]>) => {
         console.log('hola', action.payload);  
-        state.data = action.payload;
         state.status = "loaded";
-        state.data.sort(({ date: dateA }, { date: dateB }) => {
-            const convertedDateA = convertToDate(dateA);
-            const convertedDateB = convertToDate(dateB);
-            return convertedDateA.getTime() - convertedDateB.getTime();
-        });
+        state.data = action.payload.map((booking) => ({
+            ...booking
+          }));
         },
         sortByOrderDate: (
         state: BookingState,
@@ -74,6 +71,13 @@ const convertToDate = (dateString: string): Date => {
     const [day, month, year] = dateString.split(".");
     return new Date(`${year}-${month}-${day}`);
 };
+
+function formatDate(date: Date): string {
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Los meses en JavaScript son base 0, por lo que sumamos 1
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
 
 export const {
     addBooks,

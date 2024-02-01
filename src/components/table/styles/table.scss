@@ -119,14 +119,16 @@ tr{
 }
 
 .request{
-    padding: 5px;
-    border-radius: 5px;
-    width: 109px;
-    height: 48px;
-    display: flex;
-    align-items: center;   
-    justify-content: center;
-    border-radius: 20%;
+    background: none;
+    background-color: #eef9f2;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: #135846;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 40px;
+
 
 
     &.Notes{

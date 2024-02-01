@@ -8,7 +8,7 @@ import "./styles/UserDetails/UserDetails.css"
 const UserDetails: React.FC = () => {
   const params = useParams();
   const { data, status } = useAppSelector(state => state.user);
-  const user = data.find(user => user.id === Number(params.id));
+  const user = data.User.find(({ _id }) => _id === Number(params.id));
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -39,7 +39,7 @@ const UserDetails: React.FC = () => {
           <p className='details__left__main__id'>{user.username}</p>
           <div style={{ display: 'flex' }}>
             <button className='details__left__main__phone-btn'>
-              <Link to={`/users/update/${user.id}`}>
+              <Link to={`/users/update/${user._id}`}>
                 <TbEdit size={20} />
               </Link>
             </button>

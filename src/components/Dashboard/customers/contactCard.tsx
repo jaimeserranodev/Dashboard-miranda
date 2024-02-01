@@ -15,14 +15,14 @@ const ContactCards = () => {
     if (status === 'not-loaded') {
       dispatch(getContactList());
     } else {
-      setUnreadContacts(data.slice().reverse().slice(0, 5));
+        setUnreadContacts(data.contactList.slice().reverse().slice(0, 5));
     }
     // eslint-disable-next-line
   }, [data])
 
   const handleCheck = (e: React.MouseEvent<HTMLElement>, contactId: string) => {
     e.stopPropagation();
-    setUnreadContacts(unreadContacts.filter(({ id }) => id !== contactId));
+    setUnreadContacts(unreadContacts.filter(({ _id }) => _id !== contactId));
   }
   
   return (
@@ -31,17 +31,17 @@ const ContactCards = () => {
       <div className='contacts__cards'>
         {
           unreadContacts.map((contact) => (
-              <div key={contact.id} onClick={() => setEditContact(contact)} className='contacts__cards__card'>
+              <div key={contact._id} onClick={() => setEditContact(contact)} className='contacts__cards__card'>
                 <p className='contacts__cards__card__text'>{contact.comment}</p>
                 <div className='contacts__cards__card__flex'>
-                  <i className='fa-solid fa-user contacts__cards__card__flex__img'></i>
+                <img src={contact.photo} alt={contact.name} className='contacts__cards__card__flex__img' />
                   <div className='contacts__cards__card__flex__main'>
                     <p className='contacts__cards__card__flex__main__name'>{contact.name}</p>
                     <p className='contacts__cards__card__flex__main__time'>1 day ago</p>
                   </div>
                   <div className='contacts__cards__card__flex__read'>
-                    <i onClick={(e) => handleCheck(e, contact.id)} className='fa-regular fa-circle-check contacts__cards__card__flex__read__true'></i>
-                    <i onClick={(e) => handleCheck(e, contact.id)} className='fa-regular fa-circle-xmark contacts__cards__card__flex__read__false'></i>
+                    <i onClick={(e) => handleCheck(e, contact._id)} className='fa-regular fa-circle-check contacts__cards__card__flex__read__true'></i>
+                    <i onClick={(e) => handleCheck(e, contact._id)} className='fa-regular fa-circle-xmark contacts__cards__card__flex__read__false'></i>
                   </div>
                 </div>
               </div>

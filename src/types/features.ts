@@ -1,7 +1,8 @@
 export type Status = 'not-loaded' | 'loaded' | 'pending' | 'rejected';
 
 export interface User {
-    id: number;
+    _id: number | undefined;
+    
     full_name: string | undefined;
     username: string | undefined;
     photo: string | undefined;
@@ -29,7 +30,8 @@ export interface BookingType {
 
 
 export interface Room {
-    id: number;
+    
+    _id: string;
     name: string | undefined;
     bed_type: string | undefined;
     photo: string | undefined;
@@ -41,7 +43,7 @@ export interface Room {
 }
 
 export interface RoomType {
-    id: number;
+    id: string;
     name: string | undefined;
     bed_type: string | undefined;
     photo: string | undefined;
@@ -53,7 +55,8 @@ export interface RoomType {
 }
 
 export interface Contact {
-    id: string;
+    _id: string;
+    photo?: string | undefined;
     date: string;
     name: string | undefined;
     email: string | undefined;
@@ -61,4 +64,5 @@ export interface Contact {
     subject: string | undefined;
     comment: string | undefined;
     archived: boolean;
+    
     }

@@ -36,9 +36,23 @@ import "./styles/table.css";
         const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
         // LOGICA PARA PAGINACION //
 
+        const showNotes = (e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.target as HTMLElement;
+            const nextSibling = target.nextElementSibling as HTMLElement;
+            nextSibling.style.display = 'block';
+            e.stopPropagation();
+          }
+          const hideNotes = (e: React.MouseEvent<HTMLDivElement>) => {
+            e.currentTarget.style.display = 'none';
+            e.stopPropagation();
+          }
+
+
     return (
         <div>
         <table className='table'  >
+        <thead>
+
         <tr className='borderTabla'>
                 <th className='tableCell'>Guest</th>
                 <th className='tableCell'>Order Date</th>
@@ -48,29 +62,36 @@ import "./styles/table.css";
                 <th className='tableCell' >Room Type</th>
                 <th className='tableCell' >Status</th>
             </tr>
-
+            </thead>
+    <tbody>
             {currentBookings.map((booking, index) => (
             <tr className='tableRow' key={index}>
                 <td className='tableCell'>
                 <div className="cellWrapper">
                     <img src={booking.image} alt="" className='image' />
                     <div className="cellGuest">
-                    {booking.guest} <br /><span>{booking.id}</span>
+                    {booking.guest} <br /><span>{booking._id !== undefined ? booking._id.toString().slice(-4).padStart(4, "0") : ""}</span>
                     </div>
                 </div>
                 </td>
                 <td className='tableCell'>{booking.date}</td>
-                <td className='tableCell'>{booking.checkIn}<br />{booking.hourIn}</td>
-                <td className='tableCell'>{booking.checkOut}<br />{booking.checkOut}</td>
+                <td className='tableCell'>{booking.check_in}<br />{booking.hourIn}</td>
+                <td className='tableCell'>{booking.check_out}<br />{booking.checkOut}</td>
                 <td className='tableCell'>
-                <span className={`request ${booking.special_request}`}>{booking.request}</span>
+                <button onClick={(e) => showNotes(e)}  className={`request ${booking.special_request}`}>View Notes</button>
+                    <div className='list__notes-modal-wrapper' onClick={(e) => hideNotes(e)}>
+                        <div className='list__notes-modal' onClick={(e) => e.stopPropagation() }>
+                        <p>{booking.special_request || 'No special requests'}</p>
+                        </div>
+                    </div>
                 </td>
-                <td className='tableCell'>{booking.room_type}</td>
+                <td className='tableCell'>{booking.roomTipe}</td>
                 <td className='tableCell'>
                 <span className={`status ${booking.status}`}>{booking.status}</span>
                 </td>
             </tr>
             ))}
+            </tbody>
         </table>
         <Pagination
             currentPage={currentPage}

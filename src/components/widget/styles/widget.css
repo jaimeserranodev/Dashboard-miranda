@@ -1,60 +1,55 @@
 .widgets {
   width: 80%;
 }
-.widgets .widget {
+
+.widget {
+  width: 200px;
+  height: 100px;
   margin-left: 40%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
   padding: 10px;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0196078431);
   border-radius: 12px;
-  height: 100px;
-  width: 200px;
+  transition: width 0.3s, height 0.3s;
 }
-.widgets .widget .left, .widgets .widget .right {
+.widget .left, .widget .right {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.widgets .widget .left {
+.widget .left {
   width: 65px;
   height: 64px;
   background-color: #FFEDEC;
   border-radius: 20%;
 }
-.widgets .widget .widget-icon {
+.widget .widget-icon {
   width: 28px;
   height: 20px;
   color: #E23428;
 }
-.widgets .widget .right {
+.widget .right {
   margin-left: 20px;
   text-align: left;
 }
-.widgets .widget .right .number {
-  text-align: left;
-  font: normal normal 600 30px/46px "Poppins";
-  letter-spacing: 0px;
+.widget .right .number {
+  font: normal 600 30px/46px "Poppins";
   color: #393939;
-  opacity: 1;
 }
-.widgets .widget .right .subtitle {
-  text-align: left;
-  font: normal normal 300 14px/21px "Poppins";
-  letter-spacing: 0px;
+.widget .right .subtitle {
+  font: normal 300 14px/21px "Poppins";
   color: #787878;
-  opacity: 1;
 }
-.widgets .widget:hover {
+
+.widget:hover {
+  width: 205px;
   height: 105px;
-  width: 210px;
 }
-.widgets .widget:hover .widget-icon {
+.widget:hover .widget-icon {
   width: 30px;
-  height: 25px;
-  color: #E23428;
+  height: 22px;
 }/*# sourceMappingURL=widget.css.map */

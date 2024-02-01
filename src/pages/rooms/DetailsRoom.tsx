@@ -13,7 +13,7 @@ const RoomDetails = () => {
   const params = useParams();
   const { data, status } = useAppSelector((state) => state.rooms);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const room = data.roomList.find(({ id }) => id === Number(params.id));
+  const room = data.roomList.find(({ _id }) => _id === String(params.id));
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -62,11 +62,11 @@ const RoomDetails = () => {
           <div className="details__left__main">
             <h2>{room.name}</h2>
             <p className="details__left__main__id">
-              ID #{room.id.toString().padStart(2, "0")}
+              ID #{room._id.toString().padStart(2, "0")}
             </p>
             <div style={{ display: "flex", alignItems: "center" }}>
               <button className="details__left__main__phone-btn">
-                <Link to={`/rooms/update/${room.id}`}>
+                <Link to={`/rooms/update/${room._id}`}>
                   <TbEdit size={20} />
                 </Link>
               </button>

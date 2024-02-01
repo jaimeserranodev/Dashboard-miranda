@@ -1,23 +1,26 @@
 import React, { useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { updateUser } from '../../features/user/UserThunks';
+import { updateUser, getUserList } from '../../features/user/UserThunks';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { User } from '../../types/features';
 
-const UserUpdate: React.FC = () => {
+
+const UserUpdate = () => {
   const { data } = useAppSelector(state => state.user);
   const params = useParams();
-  const user = data.find(({ id }) => id === Number(params.id));
+  const user = data.User && data.User.find(({ _id }) => _id === Number(params.id));
+  
   const formRef = useRef(null);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (formRef.current) {
-      e.preventDefault();
       const formData = new FormData(formRef.current);
-      const newUser = {
-        "id": Number(params.id),
+      const user: User = {
+        "_id": Number(params.id),
         "full_name": formData.get('full_name')?.toString(),
         "username": formData.get('username')?.toString(),
         "position": formData.get('position')?.toString(),
@@ -25,11 +28,12 @@ const UserUpdate: React.FC = () => {
         "email": formData.get('email')?.toString(),
         "phone": formData.get('phone')?.toString(),
         "description": formData.get('description')?.toString(),
-        "start_date": user?.start_date || '',
+        "start_date":   "",
         "state": formData.get('state')?.toString(),
         "password": formData.get('password')?.toString()
       }
-      dispatch(updateUser(newUser))
+      dispatch(updateUser(user))
+      dispatch(getUserList())
       navigate('/users');
     }
   }

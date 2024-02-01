@@ -1,84 +1,75 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AsyncThunkAction, createAsyncThunk } from "@reduxjs/toolkit";
 import contactJson from '../../pages/contact/ContactData.json';
 import { Contact } from "../../types/features";
 import { RootState } from "../../store/store";
+import client from "../../api/httpclient";
+import { addContact } from "./ContactSlice";
+import { Dispatch } from "redux";
 
-export const getContactList = createAsyncThunk<Contact[], void, { rejectValue: Error }>(
+interface ThunkApiConfig {
+  dispatch: Dispatch<any>; // Asegúrate de importar Dispatch desde 'redux'
+}
+
+export const getContactList = createAsyncThunk<Contact[], void, ThunkApiConfig>(
   'contact/getContactListStatus',
-  async(_, { rejectWithValue }) => {
-    try {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(contactJson as Contact[]);
-        }, 200);
-      });
-    } catch (error) {
-      return rejectWithValue(error as Error);
-    }
+  async(_,  thunkAPI ) => {
+      const { dispatch } = thunkAPI;
+      try {
+        const response = await client.get<Contact[]>('/contact');
+        dispatch( addContact (response.data) );
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
   }
 )
 
 export const archiveContactById = createAsyncThunk<Contact[], string, { state: RootState, rejectValue: Error }>(
   'contact/archiveContactByIdStatus',
-  async(contactId, { getState, rejectWithValue }) => {
+  async (_id , { getState, rejectWithValue }) => {
     try {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(
-            getState().contact.data.map((contact: Contact) => {
-              if (contact.id === contactId) {
-                return {
-                  ...contact,
-                  archived: true
-                }
-              } else {
-                return contact;
-              }
-            })
-          );
-        }, 200);
+      const currentState = getState();
+      const updatedContacts = currentState.contact.data.contactList.map((contact: Contact) => {
+        if (contact._id === _id) {
+          return {
+            ...contact,
+            archived: true
+          };
+        } else {
+          return contact;
+        }
       });
+
+      return updatedContacts;
     } catch (error) {
       return rejectWithValue(error as Error);
     }
   }
-)
+);
 
-export const createContact = createAsyncThunk<Contact, Omit<Contact, 'id'>, { state: RootState, rejectValue: Error }>(
+export const createContact = createAsyncThunk<Contact, Omit<Contact, '_id'>, { state: RootState, rejectValue: Error }>(
   'contact/createContactStatus',
-  async(contact, { getState, rejectWithValue }) => {
+  async(contact, { rejectWithValue }) => {
     try {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const contactList = getState().contact.data;
-          resolve({
-            id: (Number(contactList[contactList.length-1].id) + 1).toString(),
-            ...contact
-          });
-        }, 200);
-      });
+      const response = await client.post<Contact>('/contact', contact);
+      return response.data;
     } catch (error) {
       return rejectWithValue(error as Error);
     }
   }
 )
 
-export const updateContact = createAsyncThunk<Contact[], Contact, { state: RootState, rejectValue: Error }>(
+export const updateContact = createAsyncThunk<void, Contact, { state: RootState, rejectValue: Error }>(
   'contact/updateContactStatus',
-  async(newContact, { getState, rejectWithValue }) => {
+  async(updateContact, { getState, rejectWithValue }) => {
     try {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const updatedContacts = getState().contact.data.map((contact: Contact) => {
-            if (contact.id === newContact.id) {
-              return newContact;
-            } else {
-              return contact;
-            }
-          })
-          resolve(updatedContacts);
-        }, 200);
-      });
+      const response = await client.put<Contact>(`/contact/${updateContact._id}`, updateContact);
+      if (response.status === 200) {
+        return;
+      } else {
+        throw new Error('No se pudo actualizar el contacto.');
+      }
+      
     } catch (error) {
       return rejectWithValue(error as Error);
     }
