@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
     "cypress": "cypress open"
@@ -51,7 +51,6 @@
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
     "@testing-library/react": "^14.0.0",
-    "babel-jest": "^29.6.2",
     "cypress": "^13.6.4",
     "jest": "^29.6.2",
     "react-test-renderer": "^18.2.0"
