@@ -24,7 +24,7 @@ function Contact() {
     const toggleSidebar = () => setShowSidebar(!showSidebar);
 
     if (status === 'pending') return <div>Loading...</div>;
-    if (error) return 
+if (error) return <div>Error: {error.message}</div>;
 
 
     return (
