@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import  {BookingType} from "../../types/features";
 import  Pagination  from '../pagination/Pagination';
 import "./styles/table.css";
 

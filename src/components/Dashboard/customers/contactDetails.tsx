@@ -4,11 +4,11 @@ import { Contact } from '../../../types/features';
 import { ImCross } from 'react-icons/im';
 import './styles/contact/contactDetails/contactDetails.css';
 
-interface ContactDetails {
+interface ContactDetailsProps { // Cambiado de ContactDetails a ContactDetailsProps
   editContact: Contact | null;
 }
 
-const ContactDetails: React.FC<ContactDetails> = ({ editContact }) => {
+const ContactDetails: React.FC<ContactDetailsProps> = ({ editContact }) => { // Usando el nuevo nombre de la interfaz
   const [hide, setHide] = useState(!!editContact); 
 
   useEffect(() => {

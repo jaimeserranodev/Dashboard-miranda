@@ -16,3 +16,4 @@
 //     export function sortRoomsByPrice(rooms: Room[]): Room[] {
 //         return rooms.slice().sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
 //     }
+export {}
